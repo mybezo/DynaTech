@@ -81,11 +81,11 @@ public class CokeOvenController extends SlimefunItem {
                     BlockStorage.addBlockInfo(event.getClickedBlock().get(), "dynatech:facing",
                             event.getPlayer().getFacing().toString());
 
-                    event.getPlayer().sendMessage("焦炭多方块结构有效。");
+                    event.getPlayer().sendMessage("Coke Oven multiblock is valid.");
                 } else {
 
                     BlockStorage.addBlockInfo(event.getClickedBlock().get(), "dynatech:valid", String.valueOf(false));
-                    event.getPlayer().sendMessage("焦炭多方块结构无效。");
+                    event.getPlayer().sendMessage("Coke Oven multiblock is not valid.");
                 }
 
                 DynaTech.runSync(() -> {

@@ -59,7 +59,7 @@ public class WirelessItemOutput extends SlimefunItem implements EnergyNetCompone
 
         addItemHandler(onBlockBreak(), onBlockPlace(), onRightClick());
 
-        new BlockMenuPreset(Items.Keys.WIRELESS_ITEM_OUTPUT.asSlimefunId(), "&6无线物品输出节点") {
+        new BlockMenuPreset(Items.Keys.WIRELESS_ITEM_OUTPUT.asSlimefunId(), "&6Wireless Item Output") {
             @Override
             public void init() {
                 constructMenu(this);
@@ -223,8 +223,8 @@ public class WirelessItemOutput extends SlimefunItem implements EnergyNetCompone
 
         lore.clear();
         lore.add(" ");
-        lore.add(ChatColor.WHITE + "电力: " + currentCharge + "J");
-        lore.add(ChatColor.GREEN + "已连接");
+        lore.add(ChatColor.WHITE + "Current Power: " + currentCharge + "J");
+        lore.add(ChatColor.GREEN + "Current Status: CONNECTED");
         knowledgePane.setType(Material.RED_STAINED_GLASS_PANE);
 
         im.setLore(lore);
@@ -235,7 +235,7 @@ public class WirelessItemOutput extends SlimefunItem implements EnergyNetCompone
     public void constructMenu(BlockMenuPreset preset) {
         preset.drawBackground(ChestMenuUtils.getOutputSlotTexture(), getBorder());
         preset.addItem(
-                4, new CustomItemStack(Material.PURPLE_STAINED_GLASS_PANE, "&b当前状态", "&f电力: 未知", "&c未连接"),
+                4, new CustomItemStack(Material.PURPLE_STAINED_GLASS_PANE, "&bCurrent Status", "&fCurrent Power: Unknown", "&cCurrent Status: NOT CONNECTED"),
                 ChestMenuUtils.getEmptyClickHandler());
     }
 
@@ -270,12 +270,12 @@ public class WirelessItemOutput extends SlimefunItem implements EnergyNetCompone
         ItemMeta im = item.getItemMeta();
         List<String> lore = im.getLore();
         for (int i = 0; i < lore.size(); i++) {
-            if (lore.get(i).contains("绑定位置: ")) {
+            if (lore.get(i).contains("Location: ")) {
                 lore.remove(i);
             }
         }
 
-        lore.add(ChatColor.WHITE + "绑定位置: " + l.getWorld().getName() + " " + l.getBlockX() + " " + l.getBlockY()
+        lore.add(ChatColor.WHITE + "Location: " + l.getWorld().getName() + " " + l.getBlockX() + " " + l.getBlockY()
                 + " " + l.getBlockZ());
 
         im.setLore(lore);

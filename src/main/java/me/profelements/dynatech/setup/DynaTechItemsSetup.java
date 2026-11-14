@@ -80,7 +80,6 @@ import me.profelements.dynatech.utils.ItemWrapper;
 import me.profelements.dynatech.utils.LiquidRegistry;
 import me.profelements.dynatech.utils.Recipe;
 
-import net.guizhanss.guizhanlib.minecraft.helper.inventory.ItemStackHelper;
 import net.guizhanss.guizhanlib.minecraft.utils.compatibility.PotionEffectTypeX;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -634,10 +633,10 @@ public class DynaTechItemsSetup {
                 ItemWrapper APIARY = ItemWrapper.create(APIARY_KEY, new SlimefunItemStack(
                         APIARY_KEY.asSlimefunId(),
                         Material.BEEHIVE,
-                        "&f" + item.getItemName().replace("锭", "") + "&f矿化蜂箱",
+                        "&f" + item.getItemName().replace(" Ingot", "") + " Mineralized Apiary",
                         "",
-                        "&f让蜜蜂来帮你",
-                        "&f生产材料",
+                        "&fProduces a material",
+                        "&fwith the help of bees",
                         "",
                         LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
                         LoreBuilder.powerBuffer(16384),
@@ -670,10 +669,10 @@ public class DynaTechItemsSetup {
 
             ItemWrapper APIARY = ItemWrapper.create(APIARY_KEY, new SlimefunItemStack(APIARY_KEY.asSlimefunId(),
                     Material.BEEHIVE,
-                    "&f" + ItemStackHelper.getName(item).replace("锭", "") + "&f矿化蜂箱",
+                    "&f" + ItemUtils.getItemName(item).replace(" Ingot", "") + " Mineralized Apiary",
                     "",
-                    "&f让蜜蜂来帮你",
-                    "&f生产材料",
+                    "&fProduces a material",
+                    "&fwith the help of bees",
                     "",
                     LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
                     LoreBuilder.powerBuffer(16384),

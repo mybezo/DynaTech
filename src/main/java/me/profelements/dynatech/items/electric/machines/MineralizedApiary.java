@@ -36,7 +36,7 @@ public class MineralizedApiary extends AbstractElectricMachine {
     private ItemStack material = new ItemStack(Material.AIR);
 
 
-    private static final ItemStack PROGRESS_STACK = new CustomItemStack(Material.BEACON, "&f信息", "&f蜜蜂数量：{}", "&f生产速率：{}");
+    private static final ItemStack PROGRESS_STACK = new CustomItemStack(Material.BEACON, "&fINFO", "&fBee Count: {}", "&fCurrent Speed: {}");
 
 
     public MineralizedApiary(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack material) {
@@ -154,8 +154,8 @@ public class MineralizedApiary extends AbstractElectricMachine {
         ItemStack item = PROGRESS_STACK.clone();
         ItemMeta meta = item.getItemMeta();
 
-        meta.setDisplayName(ChatUtil.color("&f信息"));
-        meta.setLore(ChatUtil.color(List.of("&f蜜蜂数量：" + beeCount, "&f生产速率：" + currSpeed + "秒")));
+        meta.setDisplayName(ChatUtil.color("&fINFO"));
+        meta.setLore(ChatUtil.color(List.of("&fBee Count: " + beeCount, "&fCurrent Speed: " + currSpeed + "s")));
         item.setItemMeta(meta);
 
         menu.replaceExistingItem(20, item);

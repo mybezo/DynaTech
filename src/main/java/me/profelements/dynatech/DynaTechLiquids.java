@@ -16,7 +16,7 @@ public class DynaTechLiquids {
         // Water
         Liquid.init()
                 .setKey(new NamespacedKey(NamespacedKey.MINECRAFT, "water"))
-                .setName("水")
+                .setName("Water")
                 .setColor(Color.BLUE)
                 .setLiquidMaterial(Material.WATER)
                 .setStorageMaterial(Material.LIGHT_BLUE_STAINED_GLASS_PANE)
@@ -25,7 +25,7 @@ public class DynaTechLiquids {
         // Lava
         Liquid.init()
                 .setKey(new NamespacedKey(NamespacedKey.MINECRAFT, "lava"))
-                .setName("岩浆")
+                .setName("Lava")
                 .setColor(Color.ORANGE)
                 .setLiquidMaterial(Material.LAVA)
                 .setStorageMaterial(Material.ORANGE_STAINED_GLASS_PANE)
@@ -34,7 +34,7 @@ public class DynaTechLiquids {
         // Honey
         Liquid.init()
                 .setKey(new NamespacedKey(NamespacedKey.MINECRAFT, "honey"))
-                .setName("蜂蜜")
+                .setName("Honey")
                 .setColor(Color.YELLOW)
                 .setLiquidMaterial(Material.LAVA)
                 .setStorageMaterial(Material.YELLOW_STAINED_GLASS_PANE)
@@ -43,7 +43,7 @@ public class DynaTechLiquids {
         // Potion
         Liquid.init()
                 .setKey(new NamespacedKey(NamespacedKey.MINECRAFT, "potion"))
-                .setName("药水")
+                .setName("Potion")
                 .setColor(Color.WHITE)
                 .setLiquidMaterial(Material.WATER)
                 .setStorageMaterial(Material.WHITE_STAINED_GLASS_PANE)
@@ -52,7 +52,7 @@ public class DynaTechLiquids {
         // Milk
         Liquid.init()
                 .setKey(new NamespacedKey(NamespacedKey.MINECRAFT, "milk"))
-                .setName("牛奶")
+                .setName("Milk")
                 .setColor(Color.WHITE)
                 .setLiquidMaterial(Material.WATER)
                 .setStorageMaterial(Material.WHITE_STAINED_GLASS_PANE)
