@@ -19,6 +19,7 @@ import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import me.profelements.dynatech.DynaTech;
 import me.profelements.dynatech.blocks.CokeOvenController;
 import me.profelements.dynatech.fluids.FluidTank;
+import me.profelements.dynatech.integrations.InfinityExpansion2Integration;
 import me.profelements.dynatech.items.RecipeBook;
 import me.profelements.dynatech.items.backpacks.PicnicBasket;
 import me.profelements.dynatech.items.backpacks.SoulboundPicnicBacket;
@@ -179,6 +180,9 @@ public class DynaTechItemsSetup {
                     .addDrop(Material.PHANTOM_MEMBRANE, 0.25f)
                     .register(plugin);
         }
+
+        // InfinityExpansion2 (Kotlin rewrite) has its own API and already ships a Phantom card.
+        InfinityExpansion2Integration.register(plugin);
 
         new WitherGolem(ItemGroups.TOOLS, Items.WITHER_SKELETON_GOLEM.stack()).register(plugin);
 

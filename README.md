@@ -26,7 +26,7 @@
 | Java | **25** or later |
 | [Slimefun (SlimefunGuguProject edition)](https://github.com/SlimefunGuguProject/Slimefun4) | A build that supports your Minecraft version. For 26.3, use the latest dev build. |
 
-**Optional integrations:** [ExoticGarden](https://github.com/SlimefunGuguProject/ExoticGarden), [InfinityExpansion](https://github.com/SlimefunGuguProject/InfinityExpansion), [Gastronomicon](https://github.com/SchnTgaiSpock/Gastronomicon)
+**Optional integrations:** [ExoticGarden](https://github.com/SlimefunGuguProject/ExoticGarden), [InfinityExpansion](https://github.com/SlimefunGuguProject/InfinityExpansion) or [InfinityExpansion2](https://github.com/mybezo/InfinityExpansion2), [Gastronomicon](https://github.com/SchnTgaiSpock/Gastronomicon)
 
 > [!IMPORTANT]
 > This version only runs on Minecraft 26.x. Servers on 1.19 to 1.21 need an older build of DynaTech.
@@ -112,6 +112,7 @@ Every material the Material Hive accepts also gets its own Mineralized Apiary, f
 | Addon | What you get |
 | --- | --- |
 | **InfinityExpansion** | **Vex Mob Data Card** for Ghostly Essence and Vex Gems, and **Phantom Mob Data Card** for Phantom Membrane. |
+| **InfinityExpansion2** | **Vex Mob Data Card** for Ghostly Essence and Vex Gems. InfinityExpansion2 already has its own Phantom card. |
 | **ExoticGarden** | Auto Kitchen, plus ExoticGarden support in the Growth Chambers, Seed Plucker, Culinary Generator and Picnic Basket. |
 
 ## Configuration

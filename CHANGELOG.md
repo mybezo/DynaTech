@@ -5,6 +5,7 @@
 
 ## Additions:
 - Support Minecraft 26.3 (built against Paper 26.3, Java 25)
+- InfinityExpansion2 support: adds the Vex Mob Data Card (InfinityExpansion2 has its own Phantom card)
 - New Mineralized Apiaries: Electromagnet, Electric Motor, Heating Coil, Sulfate, Bronze, Amethyst Shard, Plastic Sheet and Gold 24K
 - All text translated to English
 - GitHub Actions: manual builds upload `DynaTech.jar`, and pushing a `v*` tag publishes a GitHub Release
