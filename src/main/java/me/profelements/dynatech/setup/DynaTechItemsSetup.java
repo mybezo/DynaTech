@@ -182,7 +182,8 @@ public class DynaTechItemsSetup {
         }
 
         // InfinityExpansion2 (Kotlin rewrite) has its own API and already ships a Phantom card.
-        InfinityExpansion2Integration.register(plugin);
+        // The Vex card is registered once Slimefun's item registry is finalized, after InfinityExpansion2's own cards.
+        InfinityExpansion2Integration.setup(plugin);
 
         new WitherGolem(ItemGroups.TOOLS, Items.WITHER_SKELETON_GOLEM.stack()).register(plugin);
 

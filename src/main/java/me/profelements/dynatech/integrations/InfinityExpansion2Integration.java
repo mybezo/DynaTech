@@ -10,10 +10,14 @@ import javax.annotation.Nullable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
+import io.github.thebusybiscuit.slimefun4.api.events.SlimefunItemRegistryFinalizedEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import me.profelements.dynatech.DynaTech;
@@ -28,8 +32,13 @@ import me.profelements.dynatech.registries.Items;
  * so DynaTech neither needs it at compile time nor breaks when it is missing.
  * <p>
  * InfinityExpansion2 already ships a Phantom card, so only the Vex card is added here.
+ * <p>
+ * InfinityExpansion2 registers its own mob data cards when Slimefun finalizes its item registry
+ * (at {@link EventPriority#LOWEST}). The Vex card is registered at the same moment but later
+ * ({@link EventPriority#NORMAL}), so it is listed after InfinityExpansion2's cards in the guide
+ * instead of in front of them.
  */
-public final class InfinityExpansion2Integration {
+public final class InfinityExpansion2Integration implements Listener {
 
     public static final String PLUGIN_NAME = "InfinityExpansion2";
 
@@ -37,9 +46,30 @@ public final class InfinityExpansion2Integration {
     private static final String PROPS_CLASS = "net.guizhanss.infinityexpansion2.api.mobsim.MobDataCardProps";
     private static final String EMPTY_CARD_ID = "IE_MOB_DATA_CARD_EMPTY";
 
-    private InfinityExpansion2Integration() {}
+    private final SlimefunAddon addon;
 
-    public static void register(@Nonnull SlimefunAddon addon) {
+    private InfinityExpansion2Integration(@Nonnull SlimefunAddon addon) {
+        this.addon = addon;
+    }
+
+    /**
+     * Schedules the Vex mob data card registration if InfinityExpansion2 is enabled.
+     */
+    public static void setup(@Nonnull SlimefunAddon addon) {
+        Plugin ie2 = Bukkit.getPluginManager().getPlugin(PLUGIN_NAME);
+        if (ie2 == null || !ie2.isEnabled()) {
+            return;
+        }
+
+        Bukkit.getPluginManager().registerEvents(new InfinityExpansion2Integration(addon), addon.getJavaPlugin());
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onRegistryFinalized(SlimefunItemRegistryFinalizedEvent e) {
+        register(addon);
+    }
+
+    private static void register(@Nonnull SlimefunAddon addon) {
         Plugin ie2 = Bukkit.getPluginManager().getPlugin(PLUGIN_NAME);
         if (ie2 == null || !ie2.isEnabled()) {
             return;
