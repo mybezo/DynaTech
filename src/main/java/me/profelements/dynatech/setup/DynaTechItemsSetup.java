@@ -55,7 +55,6 @@ import me.profelements.dynatech.items.electric.transfer.WirelessEnergyPoint;
 import me.profelements.dynatech.items.electric.transfer.WirelessItemInput;
 import me.profelements.dynatech.items.electric.transfer.WirelessItemOutput;
 import me.profelements.dynatech.items.machines.PetalApothecary;
-import me.profelements.dynatech.items.misc.Bee;
 import me.profelements.dynatech.items.misc.ItemBand;
 import me.profelements.dynatech.items.misc.MobDropItem;
 import me.profelements.dynatech.items.misc.StarDustMeteor;
@@ -68,7 +67,6 @@ import me.profelements.dynatech.items.tools.ElectricalStimulator;
 import me.profelements.dynatech.items.tools.InventoryFilter;
 import me.profelements.dynatech.items.tools.LiquidContainerItem;
 import me.profelements.dynatech.items.tools.LiquidTank;
-import me.profelements.dynatech.items.tools.Scoop;
 import me.profelements.dynatech.items.tools.TesseractBinder;
 import me.profelements.dynatech.registries.ItemGroups;
 import me.profelements.dynatech.registries.Items;
@@ -78,7 +76,6 @@ import me.profelements.dynatech.utils.ItemWrapper;
 import me.profelements.dynatech.utils.LiquidRegistry;
 import me.profelements.dynatech.utils.Recipe;
 
-import net.guizhanss.guizhanlib.minecraft.utils.compatibility.PotionEffectTypeX;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -123,16 +120,6 @@ public class DynaTechItemsSetup {
         new SlimefunItem(ItemGroups.RESOURCES, Items.TESSERACTING_OBJ.stack(), Recipes.TESSERACTING_OBJ.getRecipeType(),
                 Recipes.TESSERACTING_OBJ.getInput()).register(plugin);
 
-        new Bee(ItemGroups.RESOURCES, Items.BEE.stack(), Recipes.BEE.getRecipeType(), Recipes.BEE.getInput(), 2)
-                .register(plugin);
-
-        new Bee(ItemGroups.RESOURCES, Items.ROBOTIC_BEE.stack(), Recipes.ROBOTIC_BEE.getRecipeType(),
-                Recipes.ROBOTIC_BEE.getInput(), 7).register(plugin);
-
-        new Bee(ItemGroups.RESOURCES, Items.ADVANCED_ROBOTIC_BEE.stack(),
-                Recipes.ADVANCED_ROBOTIC_BEE.getRecipeType(), Recipes.ADVANCED_ROBOTIC_BEE.getInput(), 11)
-                .register(plugin);
-
         // Machines
         // Generators
 
@@ -150,9 +137,6 @@ public class DynaTechItemsSetup {
                 Recipes.ELECTRICAL_STIMULATOR.getRecipeType(),
                 Recipes.ELECTRICAL_STIMULATOR.getInput()).register(plugin);
 
-        new Scoop(ItemGroups.TOOLS, Items.SCOOP.stack(), Recipes.SCOOP.getRecipeType(), Recipes.SCOOP.getInput())
-                .register(plugin);
-
         new DimensionalHome(ItemGroups.TOOLS, Items.DIMENSIONAL_HOME.stack(), Recipes.DIMENSIONAL_HOME.getRecipeType(),
                 Recipes.DIMENSIONAL_HOME.getInput()).register(plugin);
 
@@ -163,7 +147,7 @@ public class DynaTechItemsSetup {
 
         new ItemBand(ItemGroups.TOOLS, Items.ITEM_BAND_HASTE.stack(), Recipes.ITEM_BAND_HASTE.getRecipeType(),
                 Recipes.ITEM_BAND_HASTE.getInput(),
-                new PotionEffect[] { new PotionEffect(PotionEffectTypeX.HASTE, 20 * 15, 1, true) })
+                new PotionEffect[] { new PotionEffect(PotionEffectType.HASTE, 20 * 15, 1, true) })
                 .register(plugin);
 
         new TesseractBinder(ItemGroups.TOOLS, Items.TESSERACT_BINDER.stack(), Recipes.TESSERACT_BINDER.getRecipeType(),

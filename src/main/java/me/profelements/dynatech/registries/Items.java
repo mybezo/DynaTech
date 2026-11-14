@@ -219,23 +219,6 @@ public class Items {
     public static final ItemWrapper COAL_COKE = ItemWrapper.create(Keys.COAL_COKE,
             new SlimefunItemStack(Keys.COAL_COKE.asSlimefunId(), Material.COAL, "&fCoal Coke"));
 
-    public static final ItemWrapper BEE = ItemWrapper.create(Keys.BEE, new SlimefunItemStack(Keys.BEE.asSlimefunId(),
-            PlayerHead.getItemStack(
-                    PlayerSkin.fromHashCode("12724a9a4cdd68ba49415560e5be40b4a1c47cb5be1d66aedb52a30e62ef2d47")),
-            "&6Bee"));
-
-    public static final ItemWrapper ROBOTIC_BEE = ItemWrapper.create(Keys.ROBOTIC_BEE, new SlimefunItemStack(
-            Keys.ROBOTIC_BEE.asSlimefunId(),
-            PlayerHead.getItemStack(
-                    PlayerSkin.fromHashCode("16f728c89904b2cb57f853d31d0e2061f52917981fedccb1e949528e08eb4140")),
-            "&6Robotic Bee"));
-
-    public static final ItemWrapper ADVANCED_ROBOTIC_BEE = ItemWrapper.create(Keys.ADVANCED_ROBOTIC_BEE,
-            new SlimefunItemStack(Keys.ADVANCED_ROBOTIC_BEE.asSlimefunId(),
-                    PlayerHead.getItemStack(
-                            PlayerSkin.fromHashCode("c1c96e8cf83cbade55ffa667197ea6990290e5c7dc679104332caead97eef09")),
-                    "&6Advanced Robotic Bee"));
-
     public static final ItemWrapper VEX_GEM = ItemWrapper.create(Keys.VEX_GEM, new SlimefunItemStack(
             Keys.VEX_GEM.asSlimefunId(),
             PlayerHead.getItemStack(
@@ -359,17 +342,6 @@ public class Items {
                     RIGHT_CLICK_LORE,
                     "",
                     "&dSoulbound"));
-
-    public static final ItemWrapper SCOOP = ItemWrapper.create(Keys.SCOOP,
-            new SlimefunItemStack(Keys.SCOOP.asSlimefunId(),
-                    Material.IRON_SHOVEL,
-                    "&6Scoop",
-                    "",
-                    "&fUsed to capture bees.",
-                    "",
-                    "&f&oMake sure not to get stung",
-                    "",
-                    LoreBuilder.powerCharged(0, 512)));
 
     public static final ItemWrapper DIMENSIONAL_HOME = ItemWrapper.create(Keys.DIMENSIONAL_HOME, new SlimefunItemStack(
             Keys.DIMENSIONAL_HOME.asSlimefunId(),
@@ -496,7 +468,8 @@ public class Items {
                     Material.BEEHIVE,
                     "&6Material Hive",
                     "",
-                    "&fUsing power and bees, slowly generates materials.",
+                    "&fUsing power, generates one material",
+                    "&fevery 30 seconds from a stack of 64.",
                     "",
                     LoreBuilder.radioactive(Radioactivity.HIGH),
                     "",
@@ -834,11 +807,6 @@ public class Items {
         public static final TypedKey<ItemWrapper> COAL_COKE = TypedKey
                 .create("dynatech", "coal_coke");
 
-        public static final TypedKey<ItemWrapper> BEE = TypedKey.create("dynatech", "bee");
-        public static final TypedKey<ItemWrapper> ROBOTIC_BEE = TypedKey.create("dynatech", "robotic_bee");
-        public static final TypedKey<ItemWrapper> ADVANCED_ROBOTIC_BEE = TypedKey.create("dynatech",
-                "advanced_robotic_bee");
-
         public static final TypedKey<ItemWrapper> VEX_GEM = TypedKey.create("dynatech", "vex_gem");
 
         public static final TypedKey<ItemWrapper> MACHINE_SCRAP = TypedKey.create("dynatech", "machine_scrap");
@@ -876,8 +844,6 @@ public class Items {
 
         public static final TypedKey<ItemWrapper> SOUL_BOUND_PICNIC_BASKET = TypedKey.create("dynatech",
                 "soul_bound_picnic_basket");
-
-        public static final TypedKey<ItemWrapper> SCOOP = TypedKey.create("dynatech", "scoop");
 
         public static final TypedKey<ItemWrapper> DIMENSIONAL_HOME = TypedKey.create("dynatech", "dimensional_home");
 

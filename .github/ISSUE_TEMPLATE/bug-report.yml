@@ -2,15 +2,13 @@ name: Bug Report
 description: Report a bug or issue with this plugin
 labels: ["bug"]
 assignees:
-  - ybw0014
+  - mybezo
 body:
   - type: markdown
     attributes:
       value: |
-        ## Welcome to the SlimefunGuguProject issue tracker
-        You are reporting a bug in DynaTech.
-        For suggestions or general feedback, please join our [QQ group](https://50l.cc/sf-qg).
-        We recommend reading [this article](https://slimefun-wiki.guizhanss.cn/How-to-report-bugs) first to learn how to report bugs properly.
+        ## Thanks for reporting a bug in DynaTech!
+        Please fill in the form below so the problem can be reproduced and fixed quickly.
 
         <strong><i>Fields marked with an asterisk (*) are required</i></strong>
 
@@ -20,13 +18,11 @@ body:
       label: Checklist
       description: Before reporting, please confirm that
       options:
-        - label: You are using a version downloaded from the resource site (https://resources.guizhanss.com)
-          required: true
-        - label: You have verified the checksum of the downloaded file and confirmed it downloaded completely
+        - label: You are using a version downloaded from [GitHub Releases](https://github.com/mybezo/DynaTech/releases) or [GitHub Actions](https://github.com/mybezo/DynaTech/actions)
           required: true
         - label: You have not modified the contents of the downloaded file in any way
           required: true
-        - label: You have searched the [list of known issues](https://github.com/SlimefunGuguProject/DynaTech/issues) and did not find the same issue
+        - label: You have searched the [list of known issues](https://github.com/mybezo/DynaTech/issues) and did not find the same issue
           required: true
 
   - type: textarea

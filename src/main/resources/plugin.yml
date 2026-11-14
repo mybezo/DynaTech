@@ -11,11 +11,11 @@ description: A slimefun addon that add random stuff I want
 main: me.profelements.dynatech.DynaTech
 
 ## You can change this to link to your website or repository. You can also remove this line if you want to.
-website: https://github.com/ProfElements/DynaTech
+website: https://github.com/mybezo/DynaTech
 
 ## This is required and marks Slimefun as a plugin dependency.
 depend: [Slimefun]
-softdepend: [GuizhanLibPlugin, ExoticGarden, InfinityExpansion, Gastronomicon]
+softdepend: [ExoticGarden, InfinityExpansion, Gastronomicon]
 
 ## This value is automatically replaced by the version specified in your pom.xml file, do not change this.
 version: ${project.version}

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.profelements</groupId>
     <artifactId>DynaTech</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 
     <name>DynaTech</name>
 
@@ -152,12 +152,6 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>net.guizhanss</groupId>
-            <artifactId>GuizhanLibPlugin</artifactId>
-            <version>2.2.0</version>
-            <scope>provided</scope>
-        </dependency>
 
     </dependencies>
 </project>

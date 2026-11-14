@@ -1,7 +1,6 @@
 package net.guizhanss.minecraft.dynatech.utils;
 
 import me.profelements.dynatech.fluids.FluidStack;
-import net.guizhanss.guizhanlib.utils.StringUtil;
 import org.bukkit.NamespacedKey;
 
 import javax.annotation.Nonnull;
@@ -32,7 +31,22 @@ public class FluidUtils {
         } else if (fluid.equals(FluidStack.POTION_FLUID)) {
             return "Potion";
         } else {
-            return StringUtil.humanize(fluid.toString());
+            return humanize(fluid.getKey());
         }
+    }
+
+    @Nonnull
+    private static String humanize(@Nonnull String text) {
+        StringBuilder builder = new StringBuilder();
+        for (String word : text.split("[_\\s]+")) {
+            if (word.isEmpty()) {
+                continue;
+            }
+            if (!builder.isEmpty()) {
+                builder.append(' ');
+            }
+            builder.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1).toLowerCase());
+        }
+        return builder.toString();
     }
 }

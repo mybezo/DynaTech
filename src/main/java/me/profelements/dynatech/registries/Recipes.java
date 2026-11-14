@@ -10,7 +10,7 @@ import me.profelements.dynatech.utils.TimedRecipe;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 
-import net.guizhanss.guizhanlib.minecraft.utils.compatibility.EnchantmentX;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -31,7 +31,7 @@ public class Recipes {
     private static final ItemStack DIAMOND_BLOCK = new ItemStack(Material.DIAMOND_BLOCK);
     private static final ItemStack CRYING_OBSIDIAN = new ItemStack(Material.CRYING_OBSIDIAN);
     private static final ItemStack UNBREAKING_3_ENCHANTED_BOOK = new CustomItemStack(Material.ENCHANTED_BOOK, meta -> {
-        meta.addEnchant(EnchantmentX.UNBREAKING, 3, false);
+        meta.addEnchant(Enchantment.UNBREAKING, 3, false);
     });
 
     private static final ItemStack GLASS = new ItemStack(Material.GLASS);
@@ -428,40 +428,6 @@ public class Recipes {
             .setOutput(Items.COAL_COKE.stack())
             .register();
 
-    public static final Recipe BEE = Recipe.init()
-            .setKey(Keys.BEE.key())
-            .setRecipeType(RecipeTypes.SCOOPING)
-            .setInput(new CustomItemStack(
-                    PlayerHead.getItemStack(PlayerSkin.fromHashCode(
-                            "12724a9a4cdd68ba49415560e5be40b4a1c47cb5be1d66aedb52a30e62ef2d47")),
-                    "&aAny Bee"))
-            .setOutput(Items.BEE.stack())
-            .register();
-
-    public static final Recipe ROBOTIC_BEE = Recipe.init()
-            .setKey(Keys.ROBOTIC_BEE.key())
-            .setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE)
-            .setInput(new ItemStack[] {
-                    SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.REINFORCED_ALLOY_INGOT,
-                    SlimefunItems.REINFORCED_ALLOY_INGOT,
-                    SlimefunItems.SYNTHETIC_SAPPHIRE, Items.MACHINE_SCRAP.stack(), SlimefunItems.SYNTHETIC_SAPPHIRE,
-                    SlimefunItems.REINFORCED_ALLOY_INGOT, Items.ANCIENT_MACHINE_CORE.stack(),
-                    SlimefunItems.REINFORCED_ALLOY_INGOT
-            })
-            .setOutput(Items.ROBOTIC_BEE.stack())
-            .register();
-
-    public static final Recipe ADVANCED_ROBOTIC_BEE = Recipe.init()
-            .setKey(Keys.ADVANCED_ROBOTIC_BEE.key())
-            .setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE)
-            .setInput(new ItemStack[] {
-                    SlimefunItems.REINFORCED_PLATE, SlimefunItems.REINFORCED_PLATE, SlimefunItems.REINFORCED_PLATE,
-                    Items.VEX_GEM.stack(), Items.ADVANCED_MACHINE_SCRAP.stack(), Items.VEX_GEM.stack(),
-                    SlimefunItems.GOLD_24K_BLOCK, Items.ANCIENT_MACHINE_CORE.stack(), SlimefunItems.GOLD_24K_BLOCK
-            })
-            .setOutput(Items.ADVANCED_ROBOTIC_BEE.stack())
-            .register();
-
     public static final Recipe MACHINE_SCRAP = Recipe.init()
             .setKey(Keys.MACHINE_SCRAP.key())
             .setRecipeType(RecipeType.GRIND_STONE)
@@ -602,17 +568,6 @@ public class Recipes {
                     new ItemStack(Material.CRYING_OBSIDIAN)
             })
             .setOutput(Items.SOUL_BOUND_PICNIC_BASKET.stack())
-            .register();
-
-    public static final Recipe SCOOP = Recipe.init()
-            .setKey(Keys.SCOOP.key())
-            .setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE)
-            .setInput(new ItemStack[] { new ItemStack(Material.WHITE_WOOL), new ItemStack(Material.WHITE_WOOL),
-                    new ItemStack(Material.WHITE_WOOL),
-                    new ItemStack(Material.WHITE_WOOL), SlimefunItems.BATTERY, new ItemStack(Material.WHITE_WOOL),
-                    null, new ItemStack(Material.STICK), null
-            })
-            .setOutput(Items.SCOOP.stack())
             .register();
 
     public static final Recipe DIMENSIONAL_HOME = Recipe.init()
@@ -1162,10 +1117,6 @@ public class Recipes {
         public static final TypedKey<Recipe> STAINLESS_STEEL_ROTOR = TypedKey.create("dynatech",
                 "stainless_steel_rotor");
 
-        public static final TypedKey<Recipe> BEE = TypedKey.create("dynatech", "bee");
-        public static final TypedKey<Recipe> ROBOTIC_BEE = TypedKey.create("dynatech", "robotic_bee");
-        public static final TypedKey<Recipe> ADVANCED_ROBOTIC_BEE = TypedKey.create("dynatech", "advanced_robotic_bee");
-
         public static final TypedKey<Recipe> CHARCOAL_TO_COAL = TypedKey.create("dynatech", "charcoal_to_coal");
 
         public static final TypedKey<Recipe> COAL_TO_COAL_COKE = TypedKey.create("dynatech", "coal_to_coal_coke");
@@ -1198,8 +1149,6 @@ public class Recipes {
         public static final TypedKey<Recipe> PICNIC_BASKET = TypedKey.create("dynatech", "picnic_basket");
         public static final TypedKey<Recipe> SOUL_BOUND_PICNIC_BASKET = TypedKey.create("dynatech",
                 "soul_bound_picnic_basket");
-
-        public static final TypedKey<Recipe> SCOOP = TypedKey.create("dynatech", "scoop");
 
         public static final TypedKey<Recipe> DIMENSIONAL_HOME = TypedKey.create("dynatech", "dimensional_home");
 

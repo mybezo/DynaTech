@@ -24,8 +24,7 @@
 | --- | --- |
 | Server | Paper (or a fork of it) for **Minecraft 26.1 or later**. Built against 26.3. |
 | Java | **25** or later |
-| [Slimefun](https://github.com/SlimefunGuguProject/Slimefun4) | A build that supports your Minecraft version. For 26.3, use the latest SlimefunGuguProject dev build. |
-| [GuizhanLibPlugin](https://github.com/ybw0014/GuizhanLib) | **Required.** DynaTech disables itself without it. |
+| [Slimefun (SlimefunGuguProject edition)](https://github.com/SlimefunGuguProject/Slimefun4) | A build that supports your Minecraft version. For 26.3, use the latest dev build. |
 
 **Optional integrations:** [ExoticGarden](https://github.com/SlimefunGuguProject/ExoticGarden), [InfinityExpansion](https://github.com/SlimefunGuguProject/InfinityExpansion), [Gastronomicon](https://github.com/SchnTgaiSpock/Gastronomicon)
 
@@ -34,12 +33,12 @@
 
 ## Download
 
-- **Stable builds:** [resources.guizhanss.com](https://resources.guizhanss.com/plugin/DynaTech)
+- **Releases:** download `DynaTech.jar` from [GitHub Releases](https://github.com/mybezo/DynaTech/releases).
 - **Development builds:** open the latest successful run under [Actions](https://github.com/mybezo/DynaTech/actions/workflows/maven.yml) and download the `DynaTech` artifact.
 
 ### Installation
 
-1. Install Slimefun and GuizhanLibPlugin.
+1. Install Slimefun.
 2. Put `DynaTech.jar` in your server's `plugins/` folder.
 3. Restart the server. The items appear in the Slimefun Guide under **DynaTech**.
 
@@ -54,8 +53,8 @@
 | **Weather Controller** | Changes the weather when you give it a key item: Sunflower for clear, Lilac for rain, Creeper Head for thunder. |
 | **Potion Sprinkler** | Applies potion effects to players within 10 blocks. |
 | **Barbed Wire** | Pushes mobs away within 9 blocks. Useful for mob farms. |
-| **Material Hive** | Generates materials endlessly using bees and power. Place the bees and a stack of the material you want to produce. More bees make it faster (see [Bees](#-bees)). |
-| **Mineralized Apiaries** | One apiary per material. Each produces its material every **30 seconds** using power alone, with no bees needed. |
+| **Material Hive** | Generates materials endlessly using power. Put a stack of 64 of a supported material in it and it produces one more every **30 seconds**. The stack is never consumed. |
+| **Mineralized Apiaries** | One apiary per material. Each produces its material every **30 seconds** using power alone. See [Mineralized Apiaries](#-mineralized-apiaries). |
 | **Wireless Charger** | Charges rechargeable items in the inventories of players within 16 blocks. |
 | **Seed Plucker** | Extracts seeds from plant-based items. Supports ExoticGarden fruits but not essences. |
 | **Item Band Manager** | Applies Item Bands to items and removes them. |
@@ -82,20 +81,24 @@
 | **Picnic Basket** | An upgraded Cooler. Automatically feeds you vanilla or ExoticGarden food. Its blacklist is configurable in Slimefun's `Items.yml`. A Soulbound version is also available. |
 | **Electrical Stimulator** | Uses power to keep you fed. |
 | **Inventory Filter** | Deletes items you pick up if they match an item in the filter. |
-| **Scoop** | Catches bees and turns them into items. |
 | **Dimensional Home** | Teleports you to a small personal home in another dimension. Using it there sends you back to your bed spawn. |
 | **Tesseract Binder** | Links Tesseracts together. |
 | **Portable Liquid Tank** | Holds up to 16 buckets of a liquid and can place it again. |
 
-### 🐝 Bees
+### 🐝 Mineralized Apiaries
 
-Bees speed up the **Material Hive**:
+Every material the Material Hive accepts also gets its own Mineralized Apiary, found in the **DynaTech Apiaries** category.
 
-| Bee | Time saved per bee |
+| Type | Materials |
 | --- | --- |
-| **Bee** (caught with the Scoop) | −2 seconds |
-| **Robotic Bee** | −2 seconds |
-| **Advanced Robotic Bee** | −10 seconds |
+| Vanilla | Iron, Gold, Netherite, Diamond, Emerald, Lapis Lazuli, Quartz, Redstone, Coal, Amethyst Shard |
+| Slimefun metals | Copper, Tin, Silver, Aluminum, Lead, Zinc, Magnesium, Nickel, Cobalt, Gold 24K |
+| Slimefun alloys | Steel, Duralumin, Billon, Brass, Bronze, Aluminum Brass, Aluminum Bronze, Corinthian Bronze, Solder, Damascus Steel, Hardened Metal, Reinforced Alloy, Ferrosilicon, Gilded Iron, Redstone Alloy |
+| Slimefun gems | Synthetic Diamond, Synthetic Emerald, Synthetic Sapphire, Carbonado |
+| Slimefun components | Sulfate, Plastic Sheet, Electromagnet, Electric Motor, Heating Coil |
+
+> [!TIP]
+> The list is stored in Slimefun's `plugins/Slimefun/Items.yml` under the Material Hive (`vanilla-items-accepted` and `slimefun-items-accepted`). A server that ran an older DynaTech keeps its old list, so add new materials there by hand and restart the server.
 
 ### 💍 Item Bands
 
@@ -117,8 +120,6 @@ Bees speed up the **Material Hive**:
 
 ```yaml
 options:
-    # Download and install updates automatically from the build site (applies after a restart)
-    auto-update: false
     # Set to true to disable the Dimensional Home world
     disable-dimensionalhome-world: false
 ```

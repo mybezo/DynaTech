@@ -1,5 +1,3 @@
 options:
-    # Enable auto update (downloads and installs updates from the build site automatically, takes effect after restart)
-    auto-update: false
     # Whether to disable the Dimensional Home world
     disable-dimensionalhome-world: false

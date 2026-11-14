@@ -10,14 +10,13 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.inventory.InvUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.profelements.dynatech.items.abstracts.AbstractElectricMachine;
-import me.profelements.dynatech.items.misc.Bee;
-import me.profelements.dynatech.registries.Items;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -30,8 +29,10 @@ import java.util.List;
 
 public class MaterialHive extends AbstractElectricMachine implements Radioactive {
 
-    private static final int[] BACKGROUND_SLOTS = new int[] { 0, 1, 2, 6, 7, 8, 31, 36, 37, 38, 39, 40, 41, 42, 43,
-            44 };
+    private static final int RECIPE_SECONDS = 30;
+
+    private static final int[] BACKGROUND_SLOTS = new int[] { 0, 1, 2, 6, 7, 8, 19, 20, 31, 36, 37, 38, 39, 40, 41,
+            42, 43, 44 };
     private static final int[] INPUT_BORDER_SLOTS = new int[] { 9, 10, 11, 12, 18, 21, 27, 28, 29, 30 };
     private static final int[] OUTPUT_BORDER_SLOTS = new int[] { 14, 15, 16, 17, 23, 26, 32, 33, 34, 35 };
 
@@ -39,7 +40,8 @@ public class MaterialHive extends AbstractElectricMachine implements Radioactive
     private static final SlimefunItemStack UI_KEY = new SlimefunItemStack("_UI_KEY",
             Material.LIGHT_BLUE_STAINED_GLASS_PANE, " ");
 
-    private static final int[] INPUT_SLOTS = new int[] { 19, 20, 4 };
+    private static final int KEY_SLOT = 4;
+    private static final int[] INPUT_SLOTS = new int[] { KEY_SLOT };
     private static final int[] OUTPUT_SLOTS = new int[] { 24, 25 };
 
     public final ItemSetting<List<String>> vanillaItemsAccepted = new ItemSetting<>(this, "vanilla-items-accepted",
@@ -54,42 +56,15 @@ public class MaterialHive extends AbstractElectricMachine implements Radioactive
 
     @Override
     public MachineRecipe findNextRecipe(BlockMenu inv) {
-        ItemStack key = inv.getItemInSlot(getInputSlots()[2]);
+        ItemStack key = inv.getItemInSlot(KEY_SLOT);
+        if (key == null || key.getAmount() != 64) {
+            return null;
+        }
+
         for (MachineRecipe recipe : recipes) {
-            ItemStack input = recipe.getInput()[0].clone();
-            if (SlimefunUtils.isItemSimilar(key, input, true) && key.getAmount() == 64) {
-
-                int seconds = 1800;
-                ItemStack b1 = inv.getItemInSlot(getInputSlots()[0]);
-                ItemStack b2 = inv.getItemInSlot(getInputSlots()[1]);
-
-                if (b1 != null) {
-                    SlimefunItem bee1 = SlimefunItem.getByItem(b1);
-                    if (bee1 instanceof Bee) {
-                        seconds -= ((Bee) bee1).getSpeedMultipler() * b1.getAmount();
-                    }
-                }
-                if (b2 != null) {
-                    SlimefunItem bee2 = SlimefunItem.getByItem(b2);
-                    if (bee2 instanceof Bee) {
-                        seconds -= ((Bee) bee2).getSpeedMultipler() * b2.getAmount();
-                    }
-
-                    if (b1 != null && SlimefunUtils.isItemSimilar(b1, b2, true) && b1.getAmount() == 64
-                            && b2.getAmount() == 64) {
-                        if (bee2.getId().equals(Items.BEE.stack().getItemId())) {
-                            seconds = 1500;
-                        }
-                        if (bee2.getId().equals(Items.ROBOTIC_BEE.stack().getItemId())) {
-                            seconds = 900;
-                        }
-                        if (bee2.getId().equals(Items.ADVANCED_ROBOTIC_BEE.stack().getItemId())) {
-                            seconds = 300;
-                        }
-                    }
-                }
-                input.setAmount(1);
-                return new MachineRecipe(seconds, new ItemStack[] { recipe.getInput()[0] }, new ItemStack[] { input });
+            if (SlimefunUtils.isItemSimilar(key, recipe.getInput()[0], true)) {
+                // The 64 stack is only a key and is never consumed; stop when the output is full.
+                return InvUtils.fitAll(inv.toInventory(), recipe.getOutput(), getOutputSlots()) ? recipe : null;
             }
         }
         return null;
@@ -101,14 +76,15 @@ public class MaterialHive extends AbstractElectricMachine implements Radioactive
             if (sfItem != null) {
                 ItemStack item = sfItem.getItem().clone();
                 item.setAmount(64);
-                registerRecipe(new MachineRecipe(1800, new ItemStack[] { item },
-                        new ItemStack[] { SlimefunItem.getById(slimefunItem).getItem() }));
+                ItemStack output = sfItem.getItem().clone();
+                output.setAmount(1);
+                registerRecipe(new MachineRecipe(RECIPE_SECONDS, new ItemStack[] { item }, new ItemStack[] { output }));
 
             }
         }
         for (String material : vanillaItemsAccepted.getValue()) {
             ItemStack item = new ItemStack(Material.matchMaterial(material), 64);
-            registerRecipe(new MachineRecipe(1800, new ItemStack[] { item },
+            registerRecipe(new MachineRecipe(RECIPE_SECONDS, new ItemStack[] { item },
                     new ItemStack[] { new ItemStack(Material.matchMaterial(material)) }));
         }
     }

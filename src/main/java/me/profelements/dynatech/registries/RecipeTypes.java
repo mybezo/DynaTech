@@ -14,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 public class RecipeTypes {
 
     public static void init(Registry<RecipeType> registry) {
-        registry.register(Keys.SCOOPING, SCOOPING);
         registry.register(Keys.OVENING, OVENING);
         registry.register(Keys.BLOCK_DROP, BLOCK_DROP);
         registry.register(Keys.TREE_GROWTH_CHAMBER, TREE_GROWTH_CHAMBER);
@@ -22,9 +21,6 @@ public class RecipeTypes {
         registry.register(Keys.PETAL_APOTHECARY, PETAL_APOTHECARY);
         registry.register(Keys.ORECHID, ORECHID);
     }
-
-    public static final RecipeType SCOOPING = new RecipeType(Keys.SCOOPING.key(),
-            new CustomItemStack(Material.IRON_SHOVEL, "Use the Scoop to get this item."));
 
     public static final RecipeType OVENING = new RecipeType(Keys.OVENING.key(),
             new CustomItemStack(Material.SMOKER, "Throw into the Coal Coke Oven multiblock"));
@@ -58,7 +54,6 @@ public class RecipeTypes {
             });
 
     public static final class Keys {
-        public static final TypedKey<RecipeType> SCOOPING = TypedKey.create("dynatech", "scooping");
         public static final TypedKey<RecipeType> OVENING = TypedKey.create("dynatech", "ovening");
         public static final TypedKey<RecipeType> BLOCK_DROP = TypedKey.create("dynatech", "block_drop");
         public static final TypedKey<RecipeType> TREE_GROWTH_CHAMBER = TypedKey.create("dynatech",

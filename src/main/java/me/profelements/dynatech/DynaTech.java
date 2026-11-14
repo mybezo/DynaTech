@@ -1,6 +1,5 @@
 package me.profelements.dynatech;
 
-import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import me.profelements.dynatech.items.backpacks.PicnicBasket;
@@ -27,7 +26,6 @@ import me.profelements.dynatech.utils.Liquid;
 import me.profelements.dynatech.utils.LiquidRegistry;
 import me.profelements.dynatech.utils.RecipeRegistry;
 
-import net.guizhanss.guizhanlibplugin.updater.GuizhanUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
@@ -39,7 +37,6 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
 
-import java.util.logging.Level;
 
 public class DynaTech extends JavaPlugin implements SlimefunAddon {
 
@@ -54,13 +51,6 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
     @Override
     public void onEnable() {
         setInstance(this);
-
-        if (!getServer().getPluginManager().isPluginEnabled("GuizhanLibPlugin")) {
-            getLogger().log(Level.SEVERE, "This plugin requires GuizhanLibPlugin to run!");
-            getLogger().log(Level.SEVERE, "Download it here: https://50L.cc/gzlib");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
 
         rRegistry = RecipeRegistry.init();
         lRegistry = LiquidRegistry.init();
@@ -105,15 +95,6 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
         getServer().getScheduler().runTaskTimer(DynaTech.getInstance(), new InventoryFilterTask(), 0L, 5 * 20L);
         getServer().getScheduler().runTaskTimer(DynaTech.getInstance(), new ItemBandTask(), 0L, 5 * 20L);
         getServer().getScheduler().runTaskTimer(DynaTech.getInstance(), () -> this.tickInterval++, 0, TICK_TIME);
-
-        if (getConfig().getBoolean("options.auto-update") && getDescription().getVersion().startsWith("Build")) {
-            GuizhanUpdater.start(this, getFile(), "SlimefunGuguProject", "DynaTech", "master");
-        }
-
-        if (!Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_19)) {
-            getLogger().warning("DynaTech only support 1.19+, disabling.");
-            getServer().getPluginManager().disablePlugin(this);
-        }
 
         setupRegistries();
     }
