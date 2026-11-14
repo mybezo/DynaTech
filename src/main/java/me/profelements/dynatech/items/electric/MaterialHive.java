@@ -142,6 +142,7 @@ public class MaterialHive extends AbstractElectricMachine implements Radioactive
         materialsAllowed.add("QUARTZ");
         materialsAllowed.add("REDSTONE");
         materialsAllowed.add("COAL");
+        materialsAllowed.add("AMETHYST_SHARD");
 
         return materialsAllowed;
     }
@@ -180,6 +181,12 @@ public class MaterialHive extends AbstractElectricMachine implements Radioactive
         sfItemsAllowed.add("SYNTHETIC_EMERALD");
         sfItemsAllowed.add("SYNTHETIC_SAPPHIRE");
         sfItemsAllowed.add("CARBONADO");
+        sfItemsAllowed.add("BRONZE_INGOT");
+        sfItemsAllowed.add("SULFATE");
+        sfItemsAllowed.add("PLASTIC_SHEET");
+        sfItemsAllowed.add("ELECTRO_MAGNET");
+        sfItemsAllowed.add("ELECTRIC_MOTOR");
+        sfItemsAllowed.add("HEATING_COIL");
 
         return sfItemsAllowed;
     }
