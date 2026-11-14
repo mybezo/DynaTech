@@ -6,6 +6,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Rechargeable;
 import me.profelements.dynatech.items.abstracts.AbstractElectricTicker;
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -26,26 +27,49 @@ public class WirelessCharger extends AbstractElectricTicker {
 
     @Override
     protected void tick(Block b, SlimefunItem slimefunItem) {
-        if (getCharge(b.getLocation()) < getEnergyConsumption()) {
+        Location loc = b.getLocation();
+        int energyPerCharge = getEnergyConsumption();
+
+        if (getCharge(loc) < energyPerCharge) {
             return;
         }
 
-        for (Player p : b.getWorld().getPlayers()) {
-            double distance = p.getLocation().distance(b.getLocation());
+        double radiusSquared = radius * radius;
 
-            if (distance <= radius) {
-                for (ItemStack item : p.getInventory()) {
-                    SlimefunItem sfItem = SlimefunItem.getByItem(item);
+        // Only players near the charger, instead of every player in the world.
+        for (Player p : loc.getWorld().getNearbyPlayers(loc, radius)) {
+            if (p.getLocation().distanceSquared(loc) > radiusSquared) {
+                continue;
+            }
 
-                    if (sfItem instanceof Rechargeable rcItem && rcItem.getItemCharge(item) != rcItem.getMaxItemCharge(item)) {
-                        
-                        removeCharge(b.getLocation(), getEnergyConsumption());
-                        rcItem.addItemCharge(item, getEnergyConsumption());
-                        p.updateInventory();
+            boolean charged = false;
 
+            for (ItemStack item : p.getInventory().getContents()) {
+                if (item == null || item.getType().isAir()) {
+                    continue;
+                }
+
+                if (SlimefunItem.getByItem(item) instanceof Rechargeable rcItem
+                        && rcItem.getItemCharge(item) < rcItem.getMaxItemCharge(item)) {
+                    if (getCharge(loc) < energyPerCharge) {
+                        break;
                     }
+
+                    removeCharge(loc, energyPerCharge);
+                    rcItem.addItemCharge(item, energyPerCharge);
+                    charged = true;
                 }
             }
+
+            if (charged) {
+                p.updateInventory();
+            }
         }
-    }    
+    }
+
+    @Override
+    protected boolean isSynchronized() {
+        // Touches player inventories, so it must run on the main thread.
+        return true;
+    }
 }

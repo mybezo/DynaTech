@@ -187,6 +187,7 @@ public class MaterialHive extends AbstractElectricMachine implements Radioactive
         sfItemsAllowed.add("ELECTRO_MAGNET");
         sfItemsAllowed.add("ELECTRIC_MOTOR");
         sfItemsAllowed.add("HEATING_COIL");
+        sfItemsAllowed.add("GOLD_24K");
 
         return sfItemsAllowed;
     }

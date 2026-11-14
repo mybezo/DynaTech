@@ -111,6 +111,11 @@ public class PotionSprinkler extends AbstractElectricTicker {
 
         if (item != null && item.getType() == Material.POTION && item.hasItemMeta() && item.getItemMeta() instanceof PotionMeta potionMeta) {
             PotionType pt = potionMeta.getBasePotionType();
+            // Water, mundane, thick and awkward potions have no effect to apply.
+            if (pt == null || pt.getPotionEffects().isEmpty()) {
+                return;
+            }
+
             for (Entity ent : b.getWorld().getNearbyEntities(b.getLocation(), 10, 10, 10, LivingEntity.class::isInstance)) {
                 LivingEntity p = (LivingEntity) ent;
                 if (!enabledEntities.get(b.getLocation()).contains(p.getUniqueId())) {

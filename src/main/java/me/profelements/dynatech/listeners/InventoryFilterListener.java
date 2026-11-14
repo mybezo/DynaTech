@@ -8,10 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
-import java.util.HashSet;
 import java.util.Set;
 
 public class InventoryFilterListener implements Listener {
@@ -27,17 +27,26 @@ public class InventoryFilterListener implements Listener {
         }
     }
 
+    @EventHandler
+    private void onPlayerQuit(PlayerQuitEvent e) {
+        InventoryFilterTask.clear(e.getPlayer().getUniqueId());
+    }
+
     private void filterInventory(Player p, EntityPickupItemEvent event) {
         Item itemEntity = event.getItem();
         ItemStack itemEntityStack = itemEntity.getItemStack();
-        Set<ItemStack> otherItems = InventoryFilterTask.OTHER_ITEMS.computeIfAbsent(p.getUniqueId(), k -> new HashSet<>());
-        Set<String> sfItems = InventoryFilterTask.SF_ITEMS.computeIfAbsent(p.getUniqueId(), k -> new HashSet<>());
+        Set<ItemStack> otherItems = InventoryFilterTask.getOtherItems(p.getUniqueId());
+        Set<String> sfItems = InventoryFilterTask.getSlimefunItems(p.getUniqueId());
+
+        if (otherItems.isEmpty() && sfItems.isEmpty()) {
+            return;
+        }
 
         for (ItemStack checkStack : otherItems) {
-            if (checkStack != null && checkStack.isSimilar(itemEntityStack)) {
+            if (checkStack.isSimilar(itemEntityStack)) {
                 itemEntity.remove();
                 event.setCancelled(true);
-                break;
+                return;
             }
         }
 

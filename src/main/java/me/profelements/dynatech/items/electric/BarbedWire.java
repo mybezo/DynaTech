@@ -1,7 +1,6 @@
 package me.profelements.dynatech.items.electric;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -34,75 +33,68 @@ public class BarbedWire extends AbstractElectricTicker {
         addItemSetting(entityPushForce, entityDetectRange);
     }
 
-    private List<EntityType> getEntityWhitelist() {
-        ArrayList<EntityType> whitelist = new ArrayList<>();
-
-        whitelist.add(EntityType.ARROW);
-        whitelist.add(EntityType.BLAZE);
-        whitelist.add(EntityType.CAVE_SPIDER);
-        whitelist.add(EntityType.CREEPER);
-        whitelist.add(EntityType.DRAGON_FIREBALL);
-        whitelist.add(EntityType.DROWNED);
-        whitelist.add(EntityType.ELDER_GUARDIAN);
-        whitelist.add(EntityType.ENDER_DRAGON);
-        whitelist.add(EntityType.ENDERMAN);
-        whitelist.add(EntityType.ENDERMITE);
-        whitelist.add(EntityType.EVOKER);
-        whitelist.add(EntityType.FIREBALL);
-        whitelist.add(EntityType.GHAST);
-        whitelist.add(EntityType.GIANT);
-        whitelist.add(EntityType.GUARDIAN);
-        whitelist.add(EntityType.HOGLIN);
-        whitelist.add(EntityType.HUSK);
-        whitelist.add(EntityType.ILLUSIONER);
-        whitelist.add(EntityType.MAGMA_CUBE);
-        whitelist.add(EntityType.PHANTOM);
-        whitelist.add(EntityType.PIGLIN);
-        whitelist.add(EntityType.PIGLIN_BRUTE);
-        whitelist.add(EntityType.PILLAGER);
-        whitelist.add(EntityType.RAVAGER);
-        whitelist.add(EntityType.SHULKER);
-        whitelist.add(EntityType.SHULKER_BULLET);
-        whitelist.add(EntityType.SILVERFISH);
-        whitelist.add(EntityType.SKELETON);
-        whitelist.add(EntityType.SLIME);
-        whitelist.add(EntityType.SMALL_FIREBALL);
-        whitelist.add(EntityType.SPIDER);
-        whitelist.add(EntityType.STRAY);
-        whitelist.add(EntityType.VEX);
-        whitelist.add(EntityType.VINDICATOR);
-        whitelist.add(EntityType.WARDEN);
-        whitelist.add(EntityType.WITCH);
-        whitelist.add(EntityType.WITHER);
-        whitelist.add(EntityType.WITHER_SKELETON);
-        whitelist.add(EntityType.WITHER_SKULL);
-        whitelist.add(EntityType.ZOGLIN);
-        whitelist.add(EntityType.ZOMBIE);
-        whitelist.add(EntityType.ZOMBIFIED_PIGLIN);
-
-        return whitelist;
-    }
+    private static final Set<EntityType> ENTITY_WHITELIST = Set.of(
+        EntityType.ARROW,
+        EntityType.BLAZE,
+        EntityType.CAVE_SPIDER,
+        EntityType.CREEPER,
+        EntityType.DRAGON_FIREBALL,
+        EntityType.DROWNED,
+        EntityType.ELDER_GUARDIAN,
+        EntityType.ENDER_DRAGON,
+        EntityType.ENDERMAN,
+        EntityType.ENDERMITE,
+        EntityType.EVOKER,
+        EntityType.FIREBALL,
+        EntityType.GHAST,
+        EntityType.GIANT,
+        EntityType.GUARDIAN,
+        EntityType.HOGLIN,
+        EntityType.HUSK,
+        EntityType.ILLUSIONER,
+        EntityType.MAGMA_CUBE,
+        EntityType.PHANTOM,
+        EntityType.PIGLIN,
+        EntityType.PIGLIN_BRUTE,
+        EntityType.PILLAGER,
+        EntityType.RAVAGER,
+        EntityType.SHULKER,
+        EntityType.SHULKER_BULLET,
+        EntityType.SILVERFISH,
+        EntityType.SKELETON,
+        EntityType.SLIME,
+        EntityType.SMALL_FIREBALL,
+        EntityType.SPIDER,
+        EntityType.STRAY,
+        EntityType.VEX,
+        EntityType.VINDICATOR,
+        EntityType.WARDEN,
+        EntityType.WITCH,
+        EntityType.WITHER,
+        EntityType.WITHER_SKELETON,
+        EntityType.WITHER_SKULL,
+        EntityType.ZOGLIN,
+        EntityType.ZOMBIE,
+        EntityType.ZOMBIFIED_PIGLIN
+    );
 
     protected void tick(Block block, SlimefunItem item) {
         int entityDetectionRange = entityDetectRange.getValue();
-        List<EntityType> entityTypeWhitelist = getEntityWhitelist();
         Location loc = block.getLocation();
     
-        for (Entity e : block.getWorld().getNearbyEntities(loc, entityDetectionRange, entityDetectionRange, entityDetectionRange)) {
-            if (entityTypeWhitelist.contains(e.getType())) {
+        for (Entity e : block.getWorld().getNearbyEntities(loc, entityDetectionRange, entityDetectionRange, entityDetectionRange,
+                entity -> ENTITY_WHITELIST.contains(entity.getType()))) {
+            // Direction from the wire to the entity, so the entity is pushed away.
+            Vector launchDirection = e.getLocation().toVector().subtract(loc.toVector()).normalize().multiply(entityPushForce.getValue());
 
-                /// Find the Direction Vector. normailze it. multiply by the push force. apply it to the entity.
-                Vector launchDirection = loc.subtract(e.getLocation()).toVector().normalize().multiply(entityPushForce.getValue());
-
-                /// If any of the components are not finite just set it to zero.
-                if (NumberConversions.isFinite(launchDirection.getX()) && NumberConversions.isFinite(launchDirection.getY())
-                    && NumberConversions.isFinite(launchDirection.getZ())) {
-                    e.setVelocity(launchDirection);
-                } else {
-                    e.setVelocity(new Vector(0, 0, 0));
-                }
+            // If any of the components are not finite just set it to zero.
+            if (NumberConversions.isFinite(launchDirection.getX()) && NumberConversions.isFinite(launchDirection.getY())
+                && NumberConversions.isFinite(launchDirection.getZ())) {
+                e.setVelocity(launchDirection);
+            } else {
+                e.setVelocity(new Vector(0, 0, 0));
             }
-        } 
+        }
     }
 
     @Override

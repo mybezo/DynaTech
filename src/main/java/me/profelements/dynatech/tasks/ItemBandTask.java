@@ -2,7 +2,6 @@ package me.profelements.dynatech.tasks;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
-import me.profelements.dynatech.DynaTech;
 import me.profelements.dynatech.items.misc.ItemBand;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,6 +23,7 @@ public class ItemBandTask implements Runnable {
     @Override
     public void run() {
         for (Player p : Bukkit.getOnlinePlayers()) {
+            // Runs on the main thread: reads equipment and applies effects directly.
             if (!p.isValid() || p.isDead()) {
                 continue;
             }
@@ -44,23 +44,21 @@ public class ItemBandTask implements Runnable {
                 if (sfItem instanceof ItemBand) {
                     ItemBand itemBand = (ItemBand) sfItem;
 
-                    DynaTech.runSync(() -> {
-                        for (PotionEffect pe : itemBand.getPotionEffects()) {
-                            if (pe.getType() == PotionEffectType.HEALTH_BOOST)
-                            {
-                                double health = p.getHealth();
-                                p.addPotionEffect(pe);
-                                if (health > p.getAttribute(Attribute.MAX_HEALTH).getValue()) {
-                                    p.setHealth(p.getAttribute(Attribute.MAX_HEALTH).getValue());
-                                } else {
-                                    p.setHealth(health);
-                                }
-
+                    for (PotionEffect pe : itemBand.getPotionEffects()) {
+                        if (pe.getType() == PotionEffectType.HEALTH_BOOST)
+                        {
+                            double health = p.getHealth();
+                            p.addPotionEffect(pe);
+                            if (health > p.getAttribute(Attribute.MAX_HEALTH).getValue()) {
+                                p.setHealth(p.getAttribute(Attribute.MAX_HEALTH).getValue());
                             } else {
-                                p.addPotionEffect(pe);
+                                p.setHealth(health);
                             }
+
+                        } else {
+                            p.addPotionEffect(pe);
                         }
-                    });
+                    }
                 }
             }
         }
