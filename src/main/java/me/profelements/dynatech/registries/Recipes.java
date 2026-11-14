@@ -604,18 +604,6 @@ public class Recipes {
             .setOutput(Items.SOUL_BOUND_PICNIC_BASKET.stack())
             .register();
 
-    public static final Recipe ANGEL_GEM = Recipe.init()
-            .setKey(Keys.ANGEL_GEM.key())
-            .setRecipeType(RecipeType.ANCIENT_ALTAR)
-            .setInput(new ItemStack[] { new ItemStack(Material.NETHERITE_INGOT), SlimefunItems.NUCLEAR_REACTOR,
-                    new ItemStack(Material.NETHERITE_INGOT),
-                    SlimefunItems.GOLD_24K_BLOCK, Items.VEX_GEM.stack(), SlimefunItems.GOLD_24K_BLOCK,
-                    SlimefunItems.BLISTERING_INGOT_3, Items.STAINLESS_STEEL_ROTOR.stack(),
-                    SlimefunItems.BLISTERING_INGOT_3
-            })
-            .setOutput(Items.ANGEL_GEM.stack())
-            .register();
-
     public static final Recipe SCOOP = Recipe.init()
             .setKey(Keys.SCOOP.key())
             .setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE)
@@ -797,20 +785,6 @@ public class Recipes {
 
             })
             .setOutput(Items.GROWTH_CHAMBER_MK2_OCEAN.stack())
-            .register();
-
-    public static final Recipe ANTIGRAVITY_BUBBLE = Recipe.init()
-            .setKey(Keys.ANTIGRAVITY_BUBBLE.key())
-            .setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE)
-            .setInput(new ItemStack[] {
-                    SlimefunItems.BLISTERING_INGOT_3, new ItemStack(Material.DIAMOND_BLOCK),
-                    SlimefunItems.BLISTERING_INGOT_3,
-                    SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.BIG_CAPACITOR,
-                    SlimefunItems.REINFORCED_ALLOY_INGOT,
-                    SlimefunItems.REINFORCED_ALLOY_INGOT, Items.STAINLESS_STEEL_INGOT.stack(),
-                    SlimefunItems.REINFORCED_ALLOY_INGOT,
-            })
-            .setOutput(Items.ANTIGRAVITY_BUBBLE.stack())
             .register();
 
     public static final Recipe WEATHER_CONTROLLER = Recipe.init()
@@ -1225,8 +1199,6 @@ public class Recipes {
         public static final TypedKey<Recipe> SOUL_BOUND_PICNIC_BASKET = TypedKey.create("dynatech",
                 "soul_bound_picnic_basket");
 
-        public static final TypedKey<Recipe> ANGEL_GEM = TypedKey.create("dynatech", "angel_gem");
-
         public static final TypedKey<Recipe> SCOOP = TypedKey.create("dynatech", "scoop");
 
         public static final TypedKey<Recipe> DIMENSIONAL_HOME = TypedKey.create("dynatech", "dimensional_home");
@@ -1252,8 +1224,6 @@ public class Recipes {
                 .create(Items.Keys.GROWTH_CHAMBER_OCEAN.key());
         public static final TypedKey<Recipe> GROWTH_CHAMBER_MK2_OCEAN = TypedKey
                 .create(Items.Keys.GROWTH_CHAMBER_MK2_OCEAN.key());
-
-        public static final TypedKey<Recipe> ANTIGRAVITY_BUBBLE = TypedKey.create(Items.Keys.ANTIGRAVITY_BUBBLE.key());
 
         public static final TypedKey<Recipe> WEATHER_CONTROLLER = TypedKey.create(Items.Keys.WEATHER_CONTROLLER.key());
 

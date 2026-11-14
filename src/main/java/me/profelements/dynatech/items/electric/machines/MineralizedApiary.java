@@ -1,28 +1,20 @@
 package me.profelements.dynatech.items.electric.machines;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
-import org.bukkit.block.Beehive;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
-import io.github.thebusybiscuit.slimefun4.libraries.paperlib.PaperLib;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.profelements.dynatech.items.abstracts.AbstractElectricMachine;
-import net.guizhanss.guizhanlib.minecraft.utils.ChatUtil;
 
 public class MineralizedApiary extends AbstractElectricMachine {
 
@@ -36,7 +28,9 @@ public class MineralizedApiary extends AbstractElectricMachine {
     private ItemStack material = new ItemStack(Material.AIR);
 
 
-    private static final ItemStack PROGRESS_STACK = new CustomItemStack(Material.BEACON, "&fINFO", "&fBee Count: {}", "&fCurrent Speed: {}");
+    private static final int RECIPE_SECONDS = 30;
+
+    private static final ItemStack INFO_STACK = new CustomItemStack(Material.BEACON, "&fINFO", "&fProduction Time: " + RECIPE_SECONDS + "s");
 
 
     public MineralizedApiary(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, ItemStack material) {
@@ -48,53 +42,19 @@ public class MineralizedApiary extends AbstractElectricMachine {
 
     @Override
     public void postRegister() {
-        registerRecipe(60, new ItemStack[] { this.material }, new ItemStack[] { this.material });
-    }
-    
-    @Override
-    public void tick(BlockMenu menu, Block b) {
-        BlockState state = PaperLib.getBlockState(menu.getBlock(), false).getState(); 
-        if (state instanceof Beehive hive) {
-
-            int count = hive.getEntityCount();
-            
-            updateInfoStack(menu, count); 
-        }
-        super.tick(menu, b);
+        registerRecipe(RECIPE_SECONDS, new ItemStack[] { this.material }, new ItemStack[] { this.material });
     }
 
     @Override
 	public MachineRecipe findNextRecipe(BlockMenu menu) {
-        
-        int maxedSlots = 0; 
-        for (int slots : getOutputSlots()) {
-            ItemStack item = menu.getItemInSlot(slots);
-            if (item != null && item.getMaxStackSize() == item.getAmount()) {
-                maxedSlots += 1;
+        for (int slot : getOutputSlots()) {
+            ItemStack item = menu.getItemInSlot(slot);
+            if (item == null || item.getAmount() < item.getMaxStackSize()) {
+                return recipes.get(0);
             }
         }
 
-        if (maxedSlots == getOutputSlots().length) { return null; }
-
-
-        MachineRecipe recipe = recipes.get(0);
-    
-        BlockState state = PaperLib.getBlockState(menu.getBlock(), false).getState(); 
-        if (state instanceof Beehive hive) {
-
-            int count = hive.getEntityCount();
-            
-            if (count == 1) {
-                //30 second recipe if 1 bee; 
-                return new MachineRecipe(30, new ItemStack[] { this.material }, new ItemStack[] { this.material }); 
-            } else if (count > 1) {
-                // Minus 10 from 30 seconds other wise;
-                return new MachineRecipe(30 - ((count -1) * 10), new ItemStack[] { this.material }, new ItemStack[] { this.material }); 
-            }
-        }
-
-        return recipe;
-
+        return null;
     }
 
 
@@ -120,7 +80,7 @@ public class MineralizedApiary extends AbstractElectricMachine {
         preset.drawBackground(ChestMenuUtils.getOutputSlotTexture(), OUTPUT_BORDER_SLOTS);
 
         preset.addItem(getProgressSlot(), new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
-        preset.addItem(20, PROGRESS_STACK, ChestMenuUtils.getEmptyClickHandler());
+        preset.addItem(20, INFO_STACK, ChestMenuUtils.getEmptyClickHandler());
  
     }
 
@@ -137,27 +97,5 @@ public class MineralizedApiary extends AbstractElectricMachine {
     @Override
     public boolean isSynchronized() {
         return true;
-    }
-
-    private static void updateInfoStack(BlockMenu menu, int beeCount) {
-        Inventory inv = menu.toInventory();
-
-        if (inv == null || inv.getViewers().isEmpty()) {
-            return;
-        }
-
-        int currSpeed = 100; 
-        if (beeCount > 0) {
-            currSpeed = 30 - ((beeCount - 1) * 10);
-        }
-
-        ItemStack item = PROGRESS_STACK.clone();
-        ItemMeta meta = item.getItemMeta();
-
-        meta.setDisplayName(ChatUtil.color("&fINFO"));
-        meta.setLore(ChatUtil.color(List.of("&fBee Count: " + beeCount, "&fCurrent Speed: " + currSpeed + "s")));
-        item.setItemMeta(meta);
-
-        menu.replaceExistingItem(20, item);
     }
 }

@@ -22,7 +22,6 @@ import me.profelements.dynatech.fluids.FluidTank;
 import me.profelements.dynatech.items.RecipeBook;
 import me.profelements.dynatech.items.backpacks.PicnicBasket;
 import me.profelements.dynatech.items.backpacks.SoulboundPicnicBacket;
-import me.profelements.dynatech.items.electric.AntigravityBubble;
 import me.profelements.dynatech.items.electric.BandaidManager;
 import me.profelements.dynatech.items.electric.BarbedWire;
 import me.profelements.dynatech.items.electric.FurnaceController;
@@ -62,7 +61,6 @@ import me.profelements.dynatech.items.misc.MobDropItem;
 import me.profelements.dynatech.items.misc.StarDustMeteor;
 import me.profelements.dynatech.items.misc.VexGem;
 import me.profelements.dynatech.items.misc.WitherGolem;
-import me.profelements.dynatech.items.tools.AngelGem;
 import me.profelements.dynatech.items.tools.AutoInputUpgrade;
 import me.profelements.dynatech.items.tools.AutoOutputUpgrade;
 import me.profelements.dynatech.items.tools.DimensionalHome;
@@ -151,9 +149,6 @@ public class DynaTechItemsSetup {
         new ElectricalStimulator(ItemGroups.TOOLS, Items.ELECTRICAL_STIMULATOR.stack(),
                 Recipes.ELECTRICAL_STIMULATOR.getRecipeType(),
                 Recipes.ELECTRICAL_STIMULATOR.getInput()).register(plugin);
-
-        new AngelGem(ItemGroups.TOOLS, Items.ANGEL_GEM.stack(), Recipes.ANGEL_GEM.getRecipeType(),
-                Recipes.ANGEL_GEM.getInput()).register(plugin);
 
         new Scoop(ItemGroups.TOOLS, Items.SCOOP.stack(), Recipes.SCOOP.getRecipeType(), Recipes.SCOOP.getInput())
                 .register(plugin);
@@ -273,13 +268,6 @@ public class DynaTechItemsSetup {
                 .setCapacity(1024)
                 .setConsumption(128)
                 .setProcessingSpeed(3)
-                .register(plugin);
-
-        new AntigravityBubble(ItemGroups.MACHINES, Items.ANTIGRAVITY_BUBBLE.stack(),
-                Recipes.ANTIGRAVITY_BUBBLE.getRecipeType(), Recipes.ANTIGRAVITY_BUBBLE.getInput())
-                .setCapacity(1024)
-                .setConsumption(128)
-                .setProcessingSpeed(1)
                 .register(plugin);
 
         new WeatherController(ItemGroups.MACHINES, Items.WEATHER_CONTROLLER.stack(),
@@ -636,7 +624,7 @@ public class DynaTechItemsSetup {
                         "&f" + item.getItemName().replace(" Ingot", "") + " Mineralized Apiary",
                         "",
                         "&fProduces a material",
-                        "&fwith the help of bees",
+                        "&fevery 30 seconds",
                         "",
                         LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
                         LoreBuilder.powerBuffer(16384),
@@ -672,7 +660,7 @@ public class DynaTechItemsSetup {
                     "&f" + ItemUtils.getItemName(item).replace(" Ingot", "") + " Mineralized Apiary",
                     "",
                     "&fProduces a material",
-                    "&fwith the help of bees",
+                    "&fevery 30 seconds",
                     "",
                     LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
                     LoreBuilder.powerBuffer(16384),

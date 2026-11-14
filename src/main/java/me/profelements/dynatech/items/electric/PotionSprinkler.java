@@ -37,7 +37,6 @@ import java.util.UUID;
 
 public class PotionSprinkler extends AbstractElectricTicker {
 
-    //TODO: Refactor this based arouhnd the same Ideas as AntigravityBubble
 
     private final Map<Location, Set<UUID>> enabledEntities = new HashMap<>();
     private int plyrsApplied = 0;

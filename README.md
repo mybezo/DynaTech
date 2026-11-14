@@ -11,7 +11,6 @@ Most of these could possibly be overpowered or heavily underpowered.
 ## Machines
 - **Auto-Kitchen** - If you have ExoticGarden installed, this machine will become available. It automatically crafts any Kitchen recipe inserted into it.
 - **Growth Chambers** - Automatically grow some plants. We have multiple variants for all your needs. Supports Exotic Garden saplings, plants, and bushes.
-- **Antigravity Bubble** - Temporary creative flight within a 45 block area when powered.
 - **Weather Controller** - Controls the weather when given a key item (Sunflower > Clear, Lilac > Rain, Creeper Head > Thunder).
 - **Potion Sprinkler** - A ranged potion applier, the potions have durability basically. Has a 10 block range.
 - **Barbed Wire** - Pushes mob back in a radius. Has a 9 block range, perfect for mob farms.
@@ -37,7 +36,6 @@ Most of these could possibly be overpowered or heavily underpowered.
 - **Picnic Basket** - Its an upgraded Cooler. It can eat any ExoticGarden custom foods, or just regular vanilla foods, it has a configurable blacklist in the items.yml
 - **Electrical Stimulator** - Feed the player for energy. 
 - **Inventory Filter** - Upon item pickup, if item is the same as one in the Inventory Filter's filter it voids the item.
-- **Angel Gem** - Permanent Creative Flight, it has some speed settings.
 - **Scoop** - The only way to get naturals Bees. Scoop them into item form.
 - **Dimensional Home** - Gives you a small home in another dimension to teleport to and from. (it sends to you back to your bed spawn if you are in the dimension.)
 - **Tesseract Binder** - Binds Tesseract in a better manner then binding themselves via direct linking
