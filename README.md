@@ -2,7 +2,9 @@
 A set of item and machines that I made to make things easier for me and just for fun.
 Most of these could possibly be overpowered or heavily underpowered.
 
-**THIS PLUGIN REQUIRES MINECRAFT 1.19 OR LATER**
+**THIS PLUGIN REQUIRES MINECRAFT 26.1 OR LATER (BUILT AGAINST 26.3) AND JAVA 25**
+
+You also need a Slimefun build that supports your Minecraft version (for 26.3, use the latest SlimefunGuguProject dev build).
 
 ## Download
 
