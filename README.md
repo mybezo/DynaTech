@@ -1,69 +1,153 @@
+<div align="center">
+
 # DynaTech
-A set of item and machines that I made to make things easier for me and just for fun.
-Most of these could possibly be overpowered or heavily underpowered.
 
-**THIS PLUGIN REQUIRES MINECRAFT 26.1 OR LATER (BUILT AGAINST 26.3) AND JAVA 25**
+**A Slimefun addon full of machines, generators and tools that make life easier, and some that are just for fun.**
 
-You also need a Slimefun build that supports your Minecraft version (for 26.3, use the latest SlimefunGuguProject dev build).
+![Minecraft](https://img.shields.io/badge/Minecraft-26.1%2B-62B47A?style=flat-square)
+![Java](https://img.shields.io/badge/Java-25-E76F00?style=flat-square)
+![Slimefun](https://img.shields.io/badge/Slimefun-addon-3B8EEA?style=flat-square)
+[![Build](https://github.com/mybezo/DynaTech/actions/workflows/maven.yml/badge.svg)](https://github.com/mybezo/DynaTech/actions/workflows/maven.yml)
+
+[Download](#download) · [Features](#features) · [Configuration](#configuration) · [Building](#building-from-source) · [Credits](#credits)
+
+</div>
+
+---
+
+> [!NOTE]
+> Some of these items may be overpowered and some underpowered. Balance them to suit your server.
+
+## Requirements
+
+| Requirement | Version |
+| --- | --- |
+| Server | Paper (or a fork of it) for **Minecraft 26.1 or later**. Built against 26.3. |
+| Java | **25** or later |
+| [Slimefun](https://github.com/SlimefunGuguProject/Slimefun4) | A build that supports your Minecraft version. For 26.3, use the latest SlimefunGuguProject dev build. |
+| [GuizhanLibPlugin](https://github.com/ybw0014/GuizhanLib) | **Required.** DynaTech disables itself without it. |
+
+**Optional integrations:** [ExoticGarden](https://github.com/SlimefunGuguProject/ExoticGarden), [InfinityExpansion](https://github.com/SlimefunGuguProject/InfinityExpansion), [Gastronomicon](https://github.com/SchnTgaiSpock/Gastronomicon)
+
+> [!IMPORTANT]
+> This version only runs on Minecraft 26.x. Servers on 1.19 to 1.21 need an older build of DynaTech.
 
 ## Download
 
-[Download DynaTech](https://resources.guizhanss.com/plugin/DynaTech)
+- **Stable builds:** [resources.guizhanss.com](https://resources.guizhanss.com/plugin/DynaTech)
+- **Development builds:** open the latest successful run under [Actions](https://github.com/mybezo/DynaTech/actions/workflows/maven.yml) and download the `DynaTech` artifact.
 
-## Machines
-- **Auto-Kitchen** - If you have ExoticGarden installed, this machine will become available. It automatically crafts any Kitchen recipe inserted into it.
-- **Growth Chambers** - Automatically grow some plants. We have multiple variants for all your needs. Supports Exotic Garden saplings, plants, and bushes.
-- **Weather Controller** - Controls the weather when given a key item (Sunflower > Clear, Lilac > Rain, Creeper Head > Thunder).
-- **Potion Sprinkler** - A ranged potion applier, the potions have durability basically. Has a 10 block range.
-- **Barbed Wire** - Pushes mob back in a radius. Has a 9 block range, perfect for mob farms.
-- **Material Hive** - An infinite resource generator, requires Bees and a stack of the output items. Supported Materials are [here](https://github.com/ProfElements/DynaTech/blob/1b6aee96937da31c7bdb84df284392530149ce63/src/main/java/me/profelements/dynatech/items/electric/MaterialHive.java#L169). For the Material Hive, each bee you put in minuses the amount of time it takes to produce the material, so 128 bees is better then 1 bee, please note each type of bee has a different seconds minus amount. Check bee section for more info.
-- **Wireless Charger** - Charges Rechargeable Items in a Players inventory in a 16 block radius around it
-- **Seed Plucker** - Plucks seed from plant-based material, supports Exotic Garden Fruits, but not essences.
-- **Item Band Manager** - Manages the application and ripping of Item Bands.
-- **Orechid** - Changes Stone and Netherack into Overworld and Nether ores respectively
-- **Wireless Energy Bank** - Stores energy to be transfer wirelessly Using the Wireless Energy Point
-- **Wireless Energy Point** - Transfers energy wirelessly using the Energy from the Wireless Energy Bank
-- **Wireless Item Input** - Input point for 1 way wireless item transfer 
-- **Wireless Item Output** - Output Point for 1 way wireless item transfer 
-- **Tesseract** - Two way item and energy transport.
-- External Heater - Externally heats Furnace-like blocks.
-## Generators
-- **Hydro Generator** - Generates energy from flowing water (Waterlog the generator)
-- **Dragon Egg Generator** - Generates energy from the warmth of a dragon egg. (Place the dragon egg on top)
-- **Chipping Generator** - Generates energy from damaged and or durability based items
-- **Culinary Generator** - Generates energy from food energy, suports Exotic Garden Food in the Food Category.
-- **Stardust Reactor** - Generates energy from Star Dust, and lots of it
+### Installation
 
-## Tools
-- **Picnic Basket** - Its an upgraded Cooler. It can eat any ExoticGarden custom foods, or just regular vanilla foods, it has a configurable blacklist in the items.yml
-- **Electrical Stimulator** - Feed the player for energy. 
-- **Inventory Filter** - Upon item pickup, if item is the same as one in the Inventory Filter's filter it voids the item.
-- **Scoop** - The only way to get naturals Bees. Scoop them into item form.
-- **Dimensional Home** - Gives you a small home in another dimension to teleport to and from. (it sends to you back to your bed spawn if you are in the dimension.)
-- **Tesseract Binder** - Binds Tesseract in a better manner then binding themselves via direct linking
-- **Portable Fluid Tank** - Holds 16 buckets of any fluid. Can place them back down too 
+1. Install Slimefun and GuizhanLibPlugin.
+2. Put `DynaTech.jar` in your server's `plugins/` folder.
+3. Restart the server. The items appear in the Slimefun Guide under **DynaTech**.
 
-## Bees 
-- **Bee** - A Natural Bee, for each one -2 seconds to resource creation time in Material Hive.
-- **Robotic Bee** - A Robotic bee made of magic and scrap parts. -2 seconds to resource creation time in Material Hive.
-- **Advanced Robotic Bee** - An Advanced version of the Robotic Bee. -10 seconds to resource creation time in Material Hive.
+## Features
 
-## Item Bands 
-- **Healthy Item Band** - When applied to armor or weapons gain 4 hearts while wearing or holding the item in your main hand.
-- **Hasty Item Band** - When applied to armor or weapons gain 2 levels of haste while wearing or hold the item in your main hand.
+### ⚙️ Machines
 
-## Integrations 
- - **Vex Mob Data Card** - If InfinityExpansion is installed then you get a Vex Mob Data Card to help with Ghostly Essence and Vex Gems
- - **Phantom Mob Data Card** - If InfinityExpansion is install then you get a Phantom Mob Data card to help with Phantom Membrane
+| Machine | Description |
+| --- | --- |
+| **Auto Kitchen** | Crafts any Kitchen recipe automatically. Only available when ExoticGarden is installed. |
+| **Growth Chambers** | Grow plants automatically. Variants exist for the Overworld, Ocean, Nether and End, each with an MK2 version. Supports ExoticGarden saplings, plants and bushes. |
+| **Weather Controller** | Changes the weather when you give it a key item: Sunflower for clear, Lilac for rain, Creeper Head for thunder. |
+| **Potion Sprinkler** | Applies potion effects to players within 10 blocks. |
+| **Barbed Wire** | Pushes mobs away within 9 blocks. Useful for mob farms. |
+| **Material Hive** | Generates materials endlessly using bees and power. Place the bees and a stack of the material you want to produce. More bees make it faster (see [Bees](#-bees)). |
+| **Mineralized Apiaries** | One apiary per material. Each produces its material every **30 seconds** using power alone, with no bees needed. |
+| **Wireless Charger** | Charges rechargeable items in the inventories of players within 16 blocks. |
+| **Seed Plucker** | Extracts seeds from plant-based items. Supports ExoticGarden fruits but not essences. |
+| **Item Band Manager** | Applies Item Bands to items and removes them. |
+| **Orechid** | Turns nearby Stone and Netherrack into Overworld and Nether ores. |
+| **Wireless Energy Bank / Point** | Stores energy in the Bank and sends it wirelessly to a linked Point. |
+| **Wireless Item Input / Output** | One-way wireless item transfer. |
+| **Tesseract** | Two-way wireless transfer of both items and energy. |
+| **External Heater** | Heats furnace-like blocks from outside. |
+
+### ⚡ Generators
+
+| Generator | Description |
+| --- | --- |
+| **Hydro Generator** | Generates power from water. Waterlog the generator to use it. |
+| **Dragon Egg Generator** | Generates power from the warmth of a dragon egg placed on top. |
+| **Chipping Generator** | Consumes durability from damaged or durable items for power. |
+| **Culinary Generator** | Burns food for power. Supports all ExoticGarden foods. |
+| **Stardust Reactor** | Produces a large amount of power from Star Dust. |
+
+### 🛠️ Tools
+
+| Tool | Description |
+| --- | --- |
+| **Picnic Basket** | An upgraded Cooler. Automatically feeds you vanilla or ExoticGarden food. Its blacklist is configurable in Slimefun's `Items.yml`. A Soulbound version is also available. |
+| **Electrical Stimulator** | Uses power to keep you fed. |
+| **Inventory Filter** | Deletes items you pick up if they match an item in the filter. |
+| **Scoop** | Catches bees and turns them into items. |
+| **Dimensional Home** | Teleports you to a small personal home in another dimension. Using it there sends you back to your bed spawn. |
+| **Tesseract Binder** | Links Tesseracts together. |
+| **Portable Liquid Tank** | Holds up to 16 buckets of a liquid and can place it again. |
+
+### 🐝 Bees
+
+Bees speed up the **Material Hive**:
+
+| Bee | Time saved per bee |
+| --- | --- |
+| **Bee** (caught with the Scoop) | −2 seconds |
+| **Robotic Bee** | −2 seconds |
+| **Advanced Robotic Bee** | −10 seconds |
+
+### 💍 Item Bands
+
+| Item Band | Effect when worn or held in the main hand |
+| --- | --- |
+| **Healthy Item Band** | Health Boost II (+4 hearts) |
+| **Hasty Item Band** | Haste II |
+
+### 🔌 Integrations
+
+| Addon | What you get |
+| --- | --- |
+| **InfinityExpansion** | **Vex Mob Data Card** for Ghostly Essence and Vex Gems, and **Phantom Mob Data Card** for Phantom Membrane. |
+| **ExoticGarden** | Auto Kitchen, plus ExoticGarden support in the Growth Chambers, Seed Plucker, Culinary Generator and Picnic Basket. |
+
+## Configuration
+
+`plugins/DynaTech/config.yml`:
+
+```yaml
+options:
+    # Download and install updates automatically from the build site (applies after a restart)
+    auto-update: false
+    # Set to true to disable the Dimensional Home world
+    disable-dimensionalhome-world: false
+```
+
+Per-item settings, such as the Picnic Basket blacklist or the materials the Material Hive accepts, live in Slimefun's `plugins/Slimefun/Items.yml`.
+
+## Building from source
+
+You need **JDK 25** and **Maven**.
+
+```bash
+git clone https://github.com/mybezo/DynaTech.git
+cd DynaTech
+mvn clean package
+```
+
+The plugin is written to `target/DynaTech.jar`.
+
 ## Credits
- [NCBPFluffyBear](https://github.com/ncbpfluffybear) for their autocrafter code since it helped alot with the Auto-Kitchen.
 
- [Mooy1](https://github.com/mooy1) for their hydro generator code so I could figure out how to do waterlogging right.
+Originally created by [ProfElements](https://github.com/ProfElements/DynaTech). This fork is based on the [SlimefunGuguProject](https://github.com/SlimefunGuguProject/DynaTech) edition.
 
- [Seggan](https://github.com/seggan) for showing me how to make a good container class instead of using Slimefun's default.
+- [NCBPFluffyBear](https://github.com/ncbpfluffybear): the autocrafter code that helped a lot with the Auto Kitchen.
+- [Mooy1](https://github.com/mooy1): the hydro generator code that showed how to handle waterlogging properly.
+- [Seggan](https://github.com/seggan): showed how to build a good container class instead of using Slimefun's default.
+- [WalshyDev](https://github.com/WalshyDev): answered many questions in the programming help channel.
+- [Slimefun Discord](https://slimefun.dev/discord): put up with all the questions in the programming help channel.
+- [Slimefun](https://github.com/slimefun/slimefun4): an intuitive platform for building addons.
 
- [WalshyDev](https://github.com/WalshyDev) for answering my spam in the programming help channel.
+## License
 
- [Slimefun Discord](https://slimefun.dev/discord) for putting up with my outright spam of the programming help channel.
-
- [Slimefun](https://github.com/slimefun/slimefun4) for being incredibly intuitive to make an addon for and overall being generally helpful when needing examples.
+DynaTech is released under the [MIT License](LICENSE).
