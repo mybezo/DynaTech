@@ -108,7 +108,7 @@ public final class InfinityExpansion2Integration implements Listener {
                     pair.newInstance(withAmount(Items.VEX_GEM.stack(), 1), 0.1d),
                     pair.newInstance(withAmount(Items.GHOSTLY_ESSENCE.stack(), 1), 0.9d));
 
-            Object vexProps = props.newInstance("vex", "Vex", new ItemStack(Material.DIAMOND_CHESTPLATE),
+            Object vexProps = props.newInstance("vex", "Vex", new ItemStack(Material.NETHERITE_CHESTPLATE),
                     300, 2, drops, recipe);
 
             registerMobDataCard.invoke(null, vexProps, addon);
