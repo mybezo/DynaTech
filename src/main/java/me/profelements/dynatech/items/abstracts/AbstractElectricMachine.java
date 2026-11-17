@@ -56,6 +56,14 @@ public abstract class AbstractElectricMachine extends AbstractMachine implements
         return energyConsumedPerTick;
     }
     
+    /**
+     * The energy consumed per tick by the machine at this location.
+     * Compressed machines override this to only charge for the amount that is being processed.
+     */
+    public int getEnergyConsumption(@Nonnull Location l) {
+        return getEnergyConsumption();
+    }
+
     public int getSpeed() {
         return processingSpeed;
     }
@@ -110,11 +118,12 @@ public abstract class AbstractElectricMachine extends AbstractMachine implements
         if (isChargeable()) {
             int charge = getCharge(l); 
 
-             if (charge < getEnergyConsumption()) {
+             int consumption = getEnergyConsumption(l);
+             if (charge < consumption) {
                 return false;
              }
 
-             setCharge(l, charge - getEnergyConsumption()); 
+             setCharge(l, charge - consumption); 
         }
         return true; 
     }

@@ -19,6 +19,7 @@ import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import me.profelements.dynatech.DynaTech;
 import me.profelements.dynatech.blocks.CokeOvenController;
 import me.profelements.dynatech.fluids.FluidTank;
+import me.profelements.dynatech.compressed.CompressedSetup;
 import me.profelements.dynatech.integrations.InfinityExpansion2Integration;
 import me.profelements.dynatech.items.RecipeBook;
 import me.profelements.dynatech.items.backpacks.PicnicBasket;
@@ -84,6 +85,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import dev.j3fftw.extrautils.utils.LoreBuilderDynamic;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -289,7 +293,7 @@ public class DynaTechItemsSetup {
                 .setProcessingSpeed(1)
                 .register(plugin);
 
-        registerMineralizedApiaries(hive, plugin);
+        List<MineralizedApiary> apiaries = registerMineralizedApiaries(hive, plugin);
 
         new WirelessCharger(ItemGroups.MACHINES, Items.WIRELESS_CHARGER.stack(),
                 Recipes.WIRELESS_CHARGER.getRecipeType(), Recipes.WIRELESS_CHARGER.getInput(), 16)
@@ -597,9 +601,13 @@ public class DynaTechItemsSetup {
 
         // START Machines
         new CokeOvenController(Items.COAL_COKE_OVEN.stack()).register(plugin);
+
+        // Compressed machines, after all the original machines are registered
+        CompressedSetup.setup(plugin, apiaries);
     }
 
-    private static void registerMineralizedApiaries(MaterialHive hive, SlimefunAddon plugin) {
+    private static List<MineralizedApiary> registerMineralizedApiaries(MaterialHive hive, SlimefunAddon plugin) {
+        List<MineralizedApiary> apiaries = new ArrayList<>();
         for (String id : hive.slimefunItemsAccepted.getValue()) {
             SlimefunItem item = SlimefunItem.getById(id);
 
@@ -630,12 +638,13 @@ public class DynaTechItemsSetup {
                         .setOutput(APIARY.stack())
                         .register();
 
-                new MineralizedApiary(ItemGroups.HIVES, APIARY.stack(), APIARY_RECIPE.getRecipeType(),
-                        APIARY_RECIPE.getInput(), item.getItem())
-                        .setCapacity(16384)
+                MineralizedApiary apiary = new MineralizedApiary(ItemGroups.HIVES, APIARY.stack(),
+                        APIARY_RECIPE.getRecipeType(), APIARY_RECIPE.getInput(), item.getItem());
+                apiary.setCapacity(16384)
                         .setConsumption(1024)
                         .setProcessingSpeed(1)
                         .register(plugin);
+                apiaries.add(apiary);
             }
         }
 
@@ -666,13 +675,15 @@ public class DynaTechItemsSetup {
                     .setOutput(APIARY.stack())
                     .register();
 
-            new MineralizedApiary(ItemGroups.HIVES, APIARY.stack(), APIARY_RECIPE.getRecipeType(),
-                    APIARY_RECIPE.getInput(), item)
-                    .setCapacity(16384)
+            MineralizedApiary apiary = new MineralizedApiary(ItemGroups.HIVES, APIARY.stack(),
+                    APIARY_RECIPE.getRecipeType(), APIARY_RECIPE.getInput(), item);
+            apiary.setCapacity(16384)
                     .setConsumption(1024)
                     .setProcessingSpeed(1)
                     .register(plugin);
+            apiaries.add(apiary);
         }
 
+        return apiaries;
     }
 }

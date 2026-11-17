@@ -1,0 +1,41 @@
+# Compressed machines
+# A compressed machine combines multiple machines into one.
+#
+# Recipes (Compressor):
+#   x8  = 8 of the original machine
+#   x16 = 2 of the x8 machine
+#   x32 = 2 of the x16 machine
+#   x64 = 2 of the x32 machine
+#
+# Only the highest enabled multiplier is listed in the guide (Compressed Items, slot 40 of the DynaTech menu).
+# The lower multipliers can still be crafted, click them in a recipe to view them.
+#
+# Changes require a server restart.
+# Missing options are added automatically, existing values are kept.
+
+# Enable/disable all the compressed machines
+enabled: true
+
+# Enable/disable each multiplier.
+# Disabling a multiplier also disables all the multipliers above it,
+# because their recipes need the previous multiplier.
+multipliers:
+  x8: true
+  x16: true
+  x32: true
+  x64: true
+
+# Enable/disable the compressed versions (all multipliers) of each Growth Chamber
+machines:
+  DYNATECH_GROWTH_CHAMBER: true
+  DYNATECH_GROWTH_CHAMBER_MARK_2: true
+  DYNATECH_OCEAN_GROWTH_CHAMBER: true
+  DYNATECH_OCEAN_GROWTH_CHAMBER_MARK_2: true
+  DYNATECH_NETHER_GROWTH_CHAMBER: true
+  DYNATECH_NETHER_GROWTH_CHAMBER_MARK_2: true
+  DYNATECH_END_GROWTH_CHAMBER: true
+  DYNATECH_END_GROWTH_CHAMBER_MARK_2: true
+
+# Enable/disable the compressed versions (all multipliers) of each Mineralized Apiary.
+# Every apiary of the Material Hive list is added here automatically.
+apiaries: {}

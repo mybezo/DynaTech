@@ -5,6 +5,7 @@
 
 ## Additions:
 - Support Minecraft 26.3 (built against Paper 26.3, Java 25)
+- Compressed Machines: x8/x16/x32/x64 versions of every Growth Chamber and Mineralized Apiary, crafted in the Compressor, listed under "Compressed Items" (slot 40 of the DynaTech menu), configured in `compressed.yml`
 - InfinityExpansion2 support: adds the Vex Mob Data Card (InfinityExpansion2 has its own Phantom card)
 - New Mineralized Apiaries: Electromagnet, Electric Motor, Heating Coil, Sulfate, Bronze, Amethyst Shard, Plastic Sheet and Gold 24K
 - All text translated to English

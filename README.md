@@ -64,6 +64,25 @@
 | **Tesseract** | Two-way wireless transfer of both items and energy. |
 | **External Heater** | Heats furnace-like blocks from outside. |
 
+### 📦 Compressed Machines
+
+Combine several machines into one. Every machine has an **x8**, **x16**, **x32** and **x64** version, made in Slimefun's **Compressor**:
+
+| Multiplier | Recipe |
+| --- | --- |
+| x8 | 8 of the original machine |
+| x16 | 2 of the x8 version |
+| x32 | 2 of the x16 version |
+| x64 | 2 of the x32 version |
+
+Compressed versions exist for all **Growth Chambers** (MK1 and MK2) and all **Mineralized Apiaries**. Open them from the **Compressed Items** button (slot 40) of the DynaTech menu. The guide only lists the highest multiplier, but the lower ones can still be crafted. Their guide pages show the multiplier.
+
+- **Compressed Growth Chambers** use the larger MK2 menu. One operation processes as many inputs as are available, up to the multiplier (x64 with 16 seeds runs 16 times), at the speed of the original chamber. Inputs can come from several slots, and energy is only used for the amount being processed.
+- **Compressed Apiaries** keep the normal apiary menu. They produce up to the multiplier every 30 seconds, as much as fits into the output. The rest is not produced, so nothing is lost.
+- Outputs are always split into normal stacks of at most 64.
+
+All of this is configured in `plugins/DynaTech/compressed.yml` (enable everything, each multiplier, or each machine). Disabling a multiplier also disables the ones above it. Changes apply after a restart.
+
 ### ⚡ Generators
 
 | Generator | Description |
