@@ -7,7 +7,6 @@ import javax.annotation.Nonnull;
 
 import org.bukkit.inventory.ItemStack;
 
-import io.github.thebusybiscuit.slimefun4.libraries.dough.inventory.InvUtils;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.ItemUtils;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 
@@ -49,35 +48,6 @@ public final class OutputUtils {
             }
         }
         return result.toArray(new ItemStack[0]);
-    }
-
-    /**
-     * Whether all the {@code stacks} fit into the {@code slots} at once.
-     */
-    public static boolean fits(@Nonnull BlockMenu menu, @Nonnull ItemStack[] stacks, @Nonnull int[] slots) {
-        if (stacks.length == 0) {
-            return true;
-        }
-        return InvUtils.fitAll(menu.toInventory(), stacks, slots);
-    }
-
-    /**
-     * The largest amount of operations, between 0 and {@code max}, whose multiplied outputs fit into the slots.
-     * Uses a binary search, so only a few fit checks are needed.
-     */
-    public static int maxFittingOperations(@Nonnull BlockMenu menu, @Nonnull ItemStack[] outputs,
-            @Nonnull int[] slots, int max) {
-        int low = 0;
-        int high = max;
-        while (low < high) {
-            int mid = (low + high + 1) >>> 1;
-            if (fits(menu, multiply(outputs, mid), slots)) {
-                low = mid;
-            } else {
-                high = mid - 1;
-            }
-        }
-        return low;
     }
 
     /**

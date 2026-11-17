@@ -66,7 +66,7 @@
 
 ### 📦 Compressed Machines
 
-Combine several machines into one. Every machine has an **x8**, **x16**, **x32** and **x64** version, made in Slimefun's **Compressor**:
+Combine several machines into one. Every machine has an **(8)**, **(16)**, **(32)** and **(64)** version, made in Slimefun's **Compressor**:
 
 | Multiplier | Recipe |
 | --- | --- |
@@ -79,6 +79,7 @@ Compressed versions exist for all **Growth Chambers** (MK1 and MK2) and all **Mi
 
 - **Compressed Growth Chambers** use the larger MK2 menu. One operation processes as many inputs as are available, up to the multiplier (x64 with 16 seeds runs 16 times), at the speed of the original chamber. Inputs can come from several slots, and energy is only used for the amount being processed.
 - **Compressed Apiaries** keep the normal apiary menu. They produce up to the multiplier every 30 seconds, as much as fits into the output. The rest is not produced, so nothing is lost.
+- Compressed Growth Chambers have a **virtual output** of 4,096 items. Results that do not fit into the output slots wait there and refill the slots every tick, so Cargo and Networks can take everything from the output slots. An operation only starts when its whole result fits, so nothing is lost. The stored amount is shown in the menu and kept after a restart. Breaking the machine drops it.
 - Outputs are always split into normal stacks of at most 64.
 
 All of this is configured in `plugins/DynaTech/compressed.yml` (enable everything, each multiplier, or each machine). Disabling a multiplier also disables the ones above it. Changes apply after a restart.

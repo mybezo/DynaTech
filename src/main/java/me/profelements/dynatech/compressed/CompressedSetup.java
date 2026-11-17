@@ -245,7 +245,7 @@ public final class CompressedSetup {
         item.setAmount(1);
         ItemMeta meta = item.getItemMeta();
 
-        meta.setDisplayName(meta.getDisplayName() + ChatColors.color(" &a(x" + multiplier + ")"));
+        meta.setDisplayName(meta.getDisplayName() + ChatColors.color(" &a(" + multiplier + ")"));
 
         List<String> lore = new ArrayList<>();
         if (meta.hasLore()) {
