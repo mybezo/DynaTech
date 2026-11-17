@@ -16,8 +16,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
-
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -54,7 +52,6 @@ public class CompressedGrowthChamber extends AbstractElectricMachine implements 
             18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 35, 36, 44, 45, 53 };
     private static final int PROGRESS_SLOT = 13;
     private static final int INFO_SLOT = 22;
-    private static final String VIRTUAL_OUTPUT_KEY = "virtual-output";
 
     private final AbstractElectricMachine base;
     private final int multiplier;
@@ -63,8 +60,6 @@ public class CompressedGrowthChamber extends AbstractElectricMachine implements 
     // the amount of recipes processed by the current operation of each machine
     private final Map<Location, Integer> activeOperations = new ConcurrentHashMap<>();
 
-    // the results waiting for space in the output slots, loaded from the block data on first use
-    private final Map<Location, VirtualOutput> virtualOutputs = new ConcurrentHashMap<>();
 
     public CompressedGrowthChamber(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType,
             ItemStack[] recipe, @Nonnull AbstractElectricMachine base, int multiplier, @Nonnull ItemStack progressItem) {
@@ -120,7 +115,7 @@ public class CompressedGrowthChamber extends AbstractElectricMachine implements 
             // only process what fits into the virtual output, so nothing is ever lost
             long itemsPerOperation = countItems(recipe.getOutput());
             if (itemsPerOperation > 0) {
-                long room = getVirtualOutput(menu.getLocation()).getFreeSpace();
+                long room = VirtualOutputStorage.get(menu.getLocation()).getFreeSpace();
                 operations = (int) Math.min(operations, room / itemsPerOperation);
             }
             if (operations == 0) {
@@ -152,27 +147,16 @@ public class CompressedGrowthChamber extends AbstractElectricMachine implements 
         return amount;
     }
 
-    @Nonnull
-    private VirtualOutput getVirtualOutput(@Nonnull Location l) {
-        return virtualOutputs.computeIfAbsent(l,
-                loc -> VirtualOutput.deserialize(StorageCacheUtils.getData(loc, VIRTUAL_OUTPUT_KEY)));
-    }
-
-    private void saveVirtualOutput(@Nonnull Location l, @Nonnull VirtualOutput output) {
-        if (output.isEmpty()) {
-            StorageCacheUtils.removeData(l, VIRTUAL_OUTPUT_KEY);
-        } else {
-            StorageCacheUtils.setData(l, VIRTUAL_OUTPUT_KEY, output.serialize());
-        }
-    }
-
     @Override
     protected void tick(BlockMenu menu, Block b) {
         // refill the output slots from the virtual output, so Cargo and Networks can take everything
-        VirtualOutput output = getVirtualOutput(b.getLocation());
+        Location l = b.getLocation();
+        VirtualOutput output = VirtualOutputStorage.get(l);
         if (!output.isEmpty() && output.flush(menu, getOutputSlots())) {
-            saveVirtualOutput(b.getLocation(), output);
+            // this happens often while Cargo pulls, so it is saved a few seconds later
+            VirtualOutputStorage.markChanged(l);
         }
+        VirtualOutputStorage.saveIfDue(l);
         updateInfo(menu, output);
 
         super.tick(menu, b);
@@ -181,10 +165,11 @@ public class CompressedGrowthChamber extends AbstractElectricMachine implements 
     @Override
     protected void addOutputs(BlockMenu menu, Block b, ItemStack[] outputs) {
         // the results go into the virtual output first, then into the output slots
-        VirtualOutput output = getVirtualOutput(b.getLocation());
+        VirtualOutput output = VirtualOutputStorage.get(b.getLocation());
         output.add(outputs);
         output.flush(menu, getOutputSlots());
-        saveVirtualOutput(b.getLocation(), output);
+        // a finished operation is saved at once
+        VirtualOutputStorage.save(b.getLocation());
         updateInfo(menu, output);
     }
 
@@ -244,12 +229,11 @@ public class CompressedGrowthChamber extends AbstractElectricMachine implements 
         activeOperations.remove(l);
 
         // drop what is still waiting in the virtual output (at most one capacity worth)
-        VirtualOutput output = getVirtualOutput(l);
+        VirtualOutput output = VirtualOutputStorage.get(l);
         for (ItemStack item : output.takeAll()) {
             l.getWorld().dropItemNaturally(l, item);
         }
-        virtualOutputs.remove(l);
-        StorageCacheUtils.removeData(l, VIRTUAL_OUTPUT_KEY);
+        VirtualOutputStorage.remove(l);
     }
 
     @Override

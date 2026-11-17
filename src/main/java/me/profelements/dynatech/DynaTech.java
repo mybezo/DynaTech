@@ -2,6 +2,7 @@ package me.profelements.dynatech;
 
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import me.profelements.dynatech.compressed.VirtualOutputStorage;
 import me.profelements.dynatech.items.backpacks.PicnicBasket;
 import me.profelements.dynatech.items.misc.DimensionalHomeDimension;
 import me.profelements.dynatech.items.tools.ElectricalStimulator;
@@ -78,6 +79,7 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
         new CoalCokeListener(this);
         new BlockBreakBlockListener(this);
         new RegistryListeners(this);
+        VirtualOutputStorage.registerListener(this);
         try {
             Class.forName("io.github.schntgaispock.gastronomicon.api.items.FoodItemStack");
             new GastronomiconIntegrationListener(this);
@@ -113,6 +115,9 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
     @Override
     public void onDisable() {
         Bukkit.getScheduler().cancelTasks(this);
+
+        // write the virtual outputs of compressed machines that are not saved yet
+        VirtualOutputStorage.saveAll();
 
         setInstance(null);
     }

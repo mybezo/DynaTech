@@ -28,6 +28,8 @@ public final class VirtualOutput {
 
     private final List<ItemStack> items = new ArrayList<>();
     private final List<Long> amounts = new ArrayList<>();
+    // the serialized form of each item, made once so saving only has to write the amounts
+    private final List<String> encoded = new ArrayList<>();
     private long total = 0;
 
     /**
@@ -58,8 +60,10 @@ public final class VirtualOutput {
             }
             int index = indexOf(stack);
             if (index < 0) {
-                items.add(stack.asOne());
+                ItemStack item = stack.asOne();
+                items.add(item);
                 amounts.add((long) stack.getAmount());
+                encoded.add(Base64.getEncoder().encodeToString(item.serializeAsBytes()));
             } else {
                 amounts.set(index, amounts.get(index) + stack.getAmount());
             }
@@ -89,6 +93,7 @@ public final class VirtualOutput {
             if (left <= 0) {
                 items.remove(i);
                 amounts.remove(i);
+                encoded.remove(i);
             } else {
                 amounts.set(i, left);
             }
@@ -107,6 +112,7 @@ public final class VirtualOutput {
         }
         items.clear();
         amounts.clear();
+        encoded.clear();
         total = 0;
         return result;
     }
@@ -130,8 +136,7 @@ public final class VirtualOutput {
             if (builder.length() > 0) {
                 builder.append(ENTRY_SEPARATOR);
             }
-            builder.append(amounts.get(i)).append(AMOUNT_SEPARATOR)
-                    .append(Base64.getEncoder().encodeToString(items.get(i).serializeAsBytes()));
+            builder.append(amounts.get(i)).append(AMOUNT_SEPARATOR).append(encoded.get(i));
         }
         return builder.toString();
     }
@@ -153,10 +158,12 @@ public final class VirtualOutput {
             }
             try {
                 long amount = Long.parseLong(entry.substring(0, index));
-                ItemStack item = ItemStack.deserializeBytes(Base64.getDecoder().decode(entry.substring(index + 1)));
+                String data64 = entry.substring(index + 1);
+                ItemStack item = ItemStack.deserializeBytes(Base64.getDecoder().decode(data64));
                 if (amount > 0 && !item.getType().isAir()) {
                     output.items.add(item.asOne());
                     output.amounts.add(amount);
+                    output.encoded.add(data64);
                     output.total += amount;
                 }
             } catch (RuntimeException e) {
